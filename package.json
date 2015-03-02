@@ -1,0 +1,36 @@
+{
+  "name": "reaper",
+  "version": "0.0.0",
+  "description": "seven up platform",
+  "homepage": "reaper",
+  "author": {
+    "name": "steven xu",
+    "email": "nonumber1989@gmail.com",
+    "url": "nonumber1989"
+  },
+  "repository": "nonumber1989@gmail.com/reaper",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "reaper"
+  ],
+  "dependencies": {
+      "restify":"^2.8.5",
+      "mongoose":"^4.0.0-rc2"
+  },
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0",
+    "grunt-mocha-cli": "^1.11.0",
+    "jshint-stylish": "^1.0.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
