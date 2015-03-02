@@ -1,9 +1,8 @@
-var restify = require('restify')
-    , fs = require('fs')
+var restify = require('restify'),
+    fs = require('fs')
 
 
-var controllers = {}
-    , controllers_path = process.cwd() + '/app/controllers'
+var controllers = {}, controllers_path = process.cwd() + '/app/controllers'
 fs.readdirSync(controllers_path).forEach(function (file) {
     if (file.indexOf('.js') != -1) {
         controllers[file.split('.')[0]] = require(controllers_path + '/' + file)
