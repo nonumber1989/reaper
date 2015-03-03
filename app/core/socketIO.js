@@ -1,6 +1,7 @@
 var restify  = require('restify'),
     socketio = require('socket.io'),
-    configuration = require('../configuration.json')
+    fs       = require('fs'),
+    configuration = require('../configuration.js')
 
 var server = restify.createServer();
 var io = socketio.listen(server);
@@ -11,7 +12,6 @@ server.get('/', function indexHTML(req, res, next) {
             next(err);
             return;
         }
-
         res.setHeader('Content-Type', 'text/html');
         res.writeHead(200);
         res.end(data);
