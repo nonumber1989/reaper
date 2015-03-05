@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     fs = require('fs'),
-    models_path = process.cwd() + '/app/models'
+    models_path = process.cwd() + '/server/models'
 
 //set mongodb url manually
 process.env.MONGO_URL = "mongodb://localhost/reaper"

@@ -1,5 +1,5 @@
 'use strict';
 
-require('./app/core/mongoose')
-require('./app/core/router')
-require('./app/core/socketIo')
+require('./server/core/mongoose')
+require('./server/core/router')
+require('./server/core/socketIo')

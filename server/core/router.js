@@ -2,7 +2,7 @@ var restify = require('restify'),
     fs = require('fs')
 
 
-var controllers = {}, controllers_path = process.cwd() + '/app/controllers'
+var controllers = {}, controllers_path = process.cwd() + '/server/controllers'
 fs.readdirSync(controllers_path).forEach(function (file) {
     if (file.indexOf('.js') != -1) {
         controllers[file.split('.')[0]] = require(controllers_path + '/' + file)
@@ -14,6 +14,10 @@ var server = restify.createServer();
 server
     .use(restify.fullResponse())
     .use(restify.bodyParser())
+
+server.get("/", restify.serveStatic({
+    directory: './server/core/index.html'
+}));
 
 // Article Start
 server.post("/articles", controllers.article.createArticle)
