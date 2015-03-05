@@ -16,7 +16,7 @@ server
     .use(restify.bodyParser())
 
 server.get("/", restify.serveStatic({
-    directory: './server/core/index.html'
+    directory: './blade/app/'
 }));
 
 // Article Start
