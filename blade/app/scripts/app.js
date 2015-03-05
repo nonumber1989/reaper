@@ -15,7 +15,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+
+        'btford.socket-io'
   ])
   .config(function ($routeProvider) {
     $routeProvider
