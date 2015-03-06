@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('chatApp')
+    angular.module('bladeApp')
         .directive('chatBox', function() {
             return {
                 restrict: 'E',
