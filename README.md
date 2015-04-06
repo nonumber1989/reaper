@@ -16,6 +16,8 @@ $ npm install --save reaper
 var reaper = require('reaper');
 
 reaper('Rainbow');
+
+install node-gyp and vs express ( need C++ compiler for BSON)
 ```
 
 
