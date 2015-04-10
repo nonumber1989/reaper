@@ -1,6 +1,6 @@
 var jwt = require('jwt-simple');
 var validateUser = require('auth').validateUser;
-    configuration = require('../configuration.js');
+var configuration = require('../configuration.js');
 
 module.exports = function(req, res, next) {
 
@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 
   if (token || key) {
     try {
-      var decoded = jwt.decode(token,configuration.tokenSecret)());
+      var decoded = jwt.decode(token,configuration.tokenSecret);
 
       if (decoded.exp <= Date.now()) {
         res.status(400);

@@ -1,5 +1,6 @@
-var restify = require('restify'),
-    fs = require('fs')
+var restify = require('restify');
+var fs = require('fs');
+var auth = require('./auth.js');
 
 
 var controllers = {}, controllers_path = process.cwd() + '/server/controllers'
@@ -20,6 +21,10 @@ server.get("/", restify.serveStatic({
     directory: './blade/app',
     default: 'index.html'
 }));
+
+// User Start
+server.post('/user/login', auth.login);
+// User End
 
 // Article Start
 server.post("/articles", controllers.article.createArticle)
