@@ -17,7 +17,6 @@
     "reaper"
   ],
   "dependencies": {
-    "body-parser": "^1.12.2",
     "bson": "^0.3.1",
     "ecstatic": "0.7.1",
     "jwt-simple": "^0.3.0",
