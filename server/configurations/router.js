@@ -14,17 +14,17 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 var server = restify.createServer();
 server.use(logger('dev'));
 //customer restify header
-var restifyHeader = function(req, res, next) {
-  // CORS headers
-  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  // Set custom headers for CORS
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-  if (req.method == 'OPTIONS') {
-    res.status(200).end();
-  } else {
-    next();
-  }
+var restifyHeader = function (req, res, next) {
+    // CORS headers
+    res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    // Set custom headers for CORS
+    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+    if (req.method == 'OPTIONS') {
+        res.status(200).end();
+    } else {
+        next();
+    }
 }
 server.use(restifyHeader);
 server.use(validateRequest);
@@ -59,7 +59,6 @@ server.put("/comments/:id", controllers.comment.updateComment)
 server.del("/comments/:id", controllers.comment.deleteComment)
 server.get("/comments/:id", controllers.comment.viewComment)
 // Comment End
-
 
 
 var port = process.env.PORT || 3000;

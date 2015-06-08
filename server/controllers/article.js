@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
     Comment = mongoose.model("Comment"),
     ObjectId = mongoose.Types.ObjectId
 
-exports.createArticle = function(req, res, next) {
+exports.createArticle = function (req, res, next) {
     var articleModel = new Article(req.body);
-    articleModel.save(function(err, article) {
+    articleModel.save(function (err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -21,8 +21,8 @@ exports.createArticle = function(req, res, next) {
     })
 }
 
-exports.viewArticle = function(req, res, next) {
-    Article.findById(new ObjectId(req.params.id), function(err, article) {
+exports.viewArticle = function (req, res, next) {
+    Article.findById(new ObjectId(req.params.id), function (err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -45,8 +45,8 @@ exports.viewArticle = function(req, res, next) {
     })
 }
 
-exports.viewArticle_v2 = function(req, res, next) {
-    Article.findById(new ObjectId(req.params.id), function(err, article) {
+exports.viewArticle_v2 = function (req, res, next) {
+    Article.findById(new ObjectId(req.params.id), function (err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -70,9 +70,9 @@ exports.viewArticle_v2 = function(req, res, next) {
     })
 }
 
-exports.updateArticle = function(req, res, next) {
+exports.updateArticle = function (req, res, next) {
     var updatedArticleModel = new Article(req.body);
-    Article.findByIdAndUpdate(new ObjectId(req.params.id), updatedArticleModel, function(err, article) {
+    Article.findByIdAndUpdate(new ObjectId(req.params.id), updatedArticleModel, function (err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -95,8 +95,8 @@ exports.updateArticle = function(req, res, next) {
     })
 }
 
-exports.deleteArticle = function(req, res, next) {
-    Article.findByIdAndRemove(new Object(req.params.id), function(err, article) {
+exports.deleteArticle = function (req, res, next) {
+    Article.findByIdAndRemove(new Object(req.params.id), function (err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -112,20 +112,20 @@ exports.deleteArticle = function(req, res, next) {
     })
 }
 
-exports.createArticleComment = function(req, res, next) {
-    Article.findOne({_id: new ObjectId(req.params.id)}, function(err, article) {
+exports.createArticleComment = function (req, res, next) {
+    Article.findOne({_id: new ObjectId(req.params.id)}, function (err, article) {
         if (err) {
             res.json({
-               type: false,
+                type: false,
                 data: "Error occured: " + err
             });
         } else {
             if (article) {
                 var commentModel = new Comment(req.body);
                 article.comments.push(commentModel);
-                article.save(function(err, result) {
+                article.save(function (err, result) {
                     res.json({
-                       type: true,
+                        type: true,
                         data: result
                     });
                 });
