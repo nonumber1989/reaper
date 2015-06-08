@@ -54,7 +54,7 @@ var auth = {
       username: 'arvind@myapp.com'
     };
     return dbUserObj;
-  },
+  }
 }
 
 // private method

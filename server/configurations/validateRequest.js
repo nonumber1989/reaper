@@ -35,8 +35,8 @@ module.exports = function(req, res, next) {
       var dbUser = validateUser(key); // The key would be the logged in user's username
       if (dbUser) {
 
-
-        if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)) {
+//        if ((req.url.indexOf('admin') >= 0 && dbUser.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)) {
+       if (dbUser.role == 'admin') {
           next(); // To move to next middleware
         } else {
           res.status(403);

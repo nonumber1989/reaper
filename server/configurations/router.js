@@ -34,7 +34,7 @@ server
     .use(restify.bodyParser())
 
 server.get("/", restify.serveStatic({
-    directory: './blade/app',
+    directory: '../blade/app',
     default: 'index.html'
 }));
 
