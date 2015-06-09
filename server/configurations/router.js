@@ -28,7 +28,7 @@ var restifyHeader = function (req, res, next) {
     }
 }
 server.use(restifyHeader);
-
+server.use(restify.CORS());
 // not validate user for now
 //server.use(validateRequest);
 
