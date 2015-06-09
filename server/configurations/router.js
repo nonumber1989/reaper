@@ -27,7 +27,8 @@ var restifyHeader = function (req, res, next) {
     }
 }
 server.use(restifyHeader);
-server.use(validateRequest);
+//not use validation for now
+//server.use(validateRequest);
 
 server
     .use(restify.fullResponse())
