@@ -5,7 +5,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var DealSchema = new Schema({
-    dealName: String,
-    password: String
+    dealNo:String,
+    name: String,
+    amount:Number,
+    checked:Boolean,
+    time:Date,
+    types:Array
 });
 mongoose.model('Deal', DealSchema);
