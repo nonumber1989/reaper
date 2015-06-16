@@ -1,4 +1,4 @@
-exports.notFound = function(req, res) {
+exports.notFound = function (req, res) {
     res.status(404)
     res.json({
         error: 'not found',
@@ -6,7 +6,7 @@ exports.notFound = function(req, res) {
     })
 }
 
-exports.checkVersionAndContentType = function(req, res, next) {
+exports.checkVersionAndContentType = function (req, res, next) {
     var version = "";
     if (req.headers["accept"]) {
         version = req.headers["accept"].split("-")[1].split("+")[0];

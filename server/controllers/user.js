@@ -2,9 +2,9 @@ var mongoose = require('mongoose'),
     User = mongoose.model("User")
 ObjectId = mongoose.Types.ObjectId
 
-exports.createUser = function(req, res, next) {
+exports.createUser = function (req, res, next) {
     var UserModel = new User(req.body);
-    UserModel.save(function(err, User) {
+    UserModel.save(function (err, User) {
         if (err) {
             res.status(500);
             res.json({
@@ -20,8 +20,8 @@ exports.createUser = function(req, res, next) {
     })
 }
 
-exports.viewUser = function(req, res) {
-    User.findById(new ObjectId(req.params.id), function(err, User) {
+exports.viewUser = function (req, res) {
+    User.findById(new ObjectId(req.params.id), function (err, User) {
         if (err) {
             res.status(500);
             res.json({
@@ -44,9 +44,9 @@ exports.viewUser = function(req, res) {
     })
 }
 
-exports.updateUser = function(req, res, next) {
+exports.updateUser = function (req, res, next) {
     var updatedUserModel = new User(req.body);
-    User.findByIdAndUpdate(new ObjectId(req.params.id), updatedUserModel, function(err, User) {
+    User.findByIdAndUpdate(new ObjectId(req.params.id), updatedUserModel, function (err, User) {
         if (err) {
             res.status(500);
             res.json({
@@ -69,8 +69,8 @@ exports.updateUser = function(req, res, next) {
     })
 }
 
-exports.deleteUser = function(req, res, next) {
-    User.findByIdAndRemove(new Object(req.params.id), function(err, User) {
+exports.deleteUser = function (req, res, next) {
+    User.findByIdAndRemove(new Object(req.params.id), function (err, User) {
         if (err) {
             res.status(500);
             res.json({

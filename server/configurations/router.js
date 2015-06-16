@@ -14,27 +14,30 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 var server = restify.createServer();
 server.use(logger('dev'));
 //customer restify header
-var restifyHeader = function(req, res, next) {
-  // CORS headers
-  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  // Set custom headers for CORS
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-  if (req.method == 'OPTIONS') {
-    res.status(200).end();
-  } else {
-    next();
-  }
+var restifyHeader = function (req, res, next) {
+    // CORS headers
+    res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    // Set custom headers for CORS
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+    if (req.method == 'OPTIONS') {
+        res.status(200).end();
+    } else {
+        next();
+    }
 }
 server.use(restifyHeader);
-server.use(validateRequest);
+server.use(restify.CORS());
+// not validate user for now
+//server.use(validateRequest);
 
 server
     .use(restify.fullResponse())
     .use(restify.bodyParser())
 
 server.get("/", restify.serveStatic({
-    directory: './blade/app',
+    directory: '../blade/app',
     default: 'index.html'
 }));
 
@@ -60,7 +63,12 @@ server.del("/comments/:id", controllers.comment.deleteComment)
 server.get("/comments/:id", controllers.comment.viewComment)
 // Comment End
 
-
+// Article Start
+server.post("/deal", controllers.deal.createDeal)
+server.put("/deal/:id", controllers.deal.updateDeal)
+server.del("/deal/:id", controllers.deal.deleteDeal)
+server.get({path: "/deal/:id", version: "1.0.0"}, controllers.deal.viewDeal_v2)
+server.get({path: "/deal/:id", version: "2.0.0"}, controllers.deal.viewDeal_v2)
 
 var port = process.env.PORT || 3000;
 server.listen(port, function (err) {

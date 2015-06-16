@@ -1,6 +1,6 @@
-var restify  = require('restify'),
+var restify = require('restify'),
     socketio = require('socket.io'),
-    fs       = require('fs'),
+    fs = require('fs'),
     configuration = require('../configuration.js')
 
 var server = restify.createServer();
