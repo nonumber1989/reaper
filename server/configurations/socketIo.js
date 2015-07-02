@@ -1,10 +1,13 @@
 var restify = require('restify'),
     socketio = require('socket.io'),
     fs = require('fs'),
+    ecstatic = require('ecstatic'),
     configuration = require('../configuration.js')
 
 var server = restify.createServer();
 var io = socketio.listen(server.server);
+
+server.use(ecstatic({ root: __dirname + '/node_modules' }));
 
 server.get(/\/public\/?.*/, restify.serveStatic({
     directory: './chat',
@@ -12,10 +15,12 @@ server.get(/\/public\/?.*/, restify.serveStatic({
 }));
 
 server.get(/\/socket.io-client\/?.*/, restify.serveStatic({
-    directory: './node_modules/socket.io/node_modules',
-    default: 'socket.io.js'
+    directory: './node_modules/socket.io/node_modules'
 }));
 
+server.get(/\/node_modules\/?.*/, restify.serveStatic({
+    directory: './node_modules'
+}));
 //server.get('/', function indexHTML(req, res, next) {
 //    fs.readFile(__dirname + '/index.html', function (err, data) {
 //        if (err) {
