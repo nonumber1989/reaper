@@ -6,18 +6,28 @@ var restify = require('restify'),
 var server = restify.createServer();
 var io = socketio.listen(server.server);
 
-server.get('/', function indexHTML(req, res, next) {
-    fs.readFile(__dirname + '/index.html', function (err, data) {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.setHeader('Content-Type', 'text/html');
-        res.writeHead(200);
-        res.end(data);
-        next();
-    });
-});
+server.get(/\/public\/?.*/, restify.serveStatic({
+    directory: './chat',
+    default: 'index.html'
+}));
+
+server.get(/\/socket.io-client\/?.*/, restify.serveStatic({
+    directory: './node_modules/socket.io/node_modules',
+    default: 'socket.io.js'
+}));
+
+//server.get('/', function indexHTML(req, res, next) {
+//    fs.readFile(__dirname + '/index.html', function (err, data) {
+//        if (err) {
+//            next(err);
+//            return;
+//        }
+//        res.setHeader('Content-Type', 'text/html');
+//        res.writeHead(200);
+//        res.end(data);
+//        next();
+//    });
+//});
 
 // Chatroom
 // usernames which are currently connected to the chat
