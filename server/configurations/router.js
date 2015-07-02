@@ -63,12 +63,6 @@ server.del("/comments/:id", controllers.comment.deleteComment)
 server.get("/comments/:id", controllers.comment.viewComment)
 // Comment End
 
-// Article Start
-server.post("/deal", controllers.deal.createDeal)
-server.put("/deal/:id", controllers.deal.updateDeal)
-server.del("/deal/:id", controllers.deal.deleteDeal)
-server.get({path: "/deal/:id", version: "1.0.0"}, controllers.deal.viewDeal_v2)
-server.get({path: "/deal/:id", version: "2.0.0"}, controllers.deal.viewDeal_v2)
 
 var port = process.env.PORT || 3000;
 server.listen(port, function (err) {

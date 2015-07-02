@@ -4,7 +4,7 @@ var restify = require('restify'),
     configuration = require('../configuration.js')
 
 var server = restify.createServer();
-var io = socketio.listen(server);
+var io = socketio.listen(server.server);
 
 server.get('/', function indexHTML(req, res, next) {
     fs.readFile(__dirname + '/index.html', function (err, data) {
