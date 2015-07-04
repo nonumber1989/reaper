@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e465f6f4-2918-4c28-bf82-886496acfe27" name="Default" comment="">
-      <change type="DELETED" beforePath="E:\horaeSpace\reaper\.bowerrc" afterPath="" />
-      <change type="DELETED" beforePath="E:\horaeSpace\reaper\Gruntfile.js" afterPath="" />
-      <change type="DELETED" beforePath="E:\horaeSpace\reaper\app\index.html" afterPath="" />
-      <change type="DELETED" beforePath="E:\horaeSpace\reaper\app\styles\main.css" afterPath="" />
-      <change type="DELETED" beforePath="E:\horaeSpace\reaper\projectFilesBackup\.idea\workspace.xml" afterPath="" />
-    </list>
+    <list default="true" id="e465f6f4-2918-4c28-bf82-886496acfe27" name="Default" comment="" />
     <ignored path="reaper.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -211,7 +205,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
