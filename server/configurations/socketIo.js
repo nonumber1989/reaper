@@ -17,8 +17,14 @@ server.get(/\/socket.io-client\/?.*/, restify.serveStatic({
     directory: './node_modules/socket.io/node_modules'
 }));
 
+<<<<<<< HEAD
 server.get(/\/test\/?.*/, restify.serveStatic({
     directory: __dirname
+=======
+server.get(/\/?.*/, restify.serveStatic({
+    directory: './chat/public',
+    default: 'index.html'
+>>>>>>> 3ca597e9421f8d5ced01dc979ba4a88a678c31dc
 }));
 //server.get('/', function indexHTML(req, res, next) {
 //    fs.readFile(__dirname + '/index.html', function (err, data) {
