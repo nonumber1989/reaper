@@ -1,39 +1,20 @@
 var restify = require('restify'),
     socketio = require('socket.io'),
     fs = require('fs'),
-    ecstatic = require('ecstatic'),
     configuration = require('../configuration.js')
 
 var server = restify.createServer();
 var io = socketio.listen(server.server);
 
-server.use(ecstatic({ root: __dirname + '/node_modules' }));
-
-server.get(/\/public\/?.*/, restify.serveStatic({
-    directory: './chat',
-    default: 'index.html'
-}));
-
-server.get(/\/socket.io-client\/?.*/, restify.serveStatic({
-    directory: './node_modules/socket.io/node_modules'
-}));
-
-server.get(/\/?.*/, restify.serveStatic({
-    directory: './chat/public',
-    default: 'index.html'
-}));
-//server.get('/', function indexHTML(req, res, next) {
-//    fs.readFile(__dirname + '/index.html', function (err, data) {
-//        if (err) {
-//            next(err);
-//            return;
-//        }
-//        res.setHeader('Content-Type', 'text/html');
-//        res.writeHead(200);
-//        res.end(data);
-//        next();
-//    });
-//});
+//server.get(/\/public\/?.*/, restify.serveStatic({
+//    directory: './chat',
+//    default: 'index.html'
+//}));
+//
+//server.get(/\/?.*/, restify.serveStatic({
+//    directory: './chat/public',
+//    default: 'index.html'
+//}));
 
 // Chatroom
 // usernames which are currently connected to the chat
