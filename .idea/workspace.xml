@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="56af5e27-1182-4564-8a5d-83d0466cf579" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/keep/Node.js" afterPath="$PROJECT_DIR$/server/models/keep/Node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/keep/Nodes.js" afterPath="$PROJECT_DIR$/server/models/keep/Nodes.js" />
     </list>
     <ignored path="reaper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +26,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Node.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Node.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/models/keep/Node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5589623" vertical-offset="206" max-vertical-offset="1054">
-              <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+            <state vertical-scroll-proportion="-3.4" vertical-offset="0" max-vertical-offset="1156">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="15" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Nodes.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/models/keep/Nodes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.43867925" vertical-offset="36" max-vertical-offset="884">
+              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -51,9 +62,9 @@
         <option value="$PROJECT_DIR$/server/models/keep/Timestamp.js" />
         <option value="$PROJECT_DIR$/server/models/keep/Timestamps.js" />
         <option value="$PROJECT_DIR$/server/models/keep/Profile.js" />
-        <option value="$PROJECT_DIR$/server/models/keep/Nodes.js" />
         <option value="$PROJECT_DIR$/server/models/keep/Item.js" />
         <option value="$PROJECT_DIR$/server/models/keep/Node.js" />
+        <option value="$PROJECT_DIR$/server/models/keep/Nodes.js" />
       </list>
     </option>
   </component>
@@ -275,14 +286,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/models/keep/Nodes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="848">
-          <caret line="0" column="33" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/models/keep/Item.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.3679245" vertical-offset="0" max-vertical-offset="3672">
@@ -317,8 +320,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/models/keep/Node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5589623" vertical-offset="206" max-vertical-offset="1054">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+        <state vertical-scroll-proportion="-3.4" vertical-offset="0" max-vertical-offset="1156">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/keep/Nodes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43867925" vertical-offset="36" max-vertical-offset="884">
+          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
           <folding />
         </state>
       </provider>

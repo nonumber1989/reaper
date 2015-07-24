@@ -17,6 +17,12 @@ var NodeSchema = new Schema({
     },
     title: String,
     text: String,
+    labelIds: [
+        {
+            labelId: String,
+            deleted: Date
+        }
+    ],
     blob: {
         kind: String,
         type: String,
