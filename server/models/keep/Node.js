@@ -18,7 +18,16 @@ var NodeSchema = new Schema({
     title: String,
     text: String,
     blob: {
-        kind: String
+        kind: String,
+        type: String,
+        blob_id: String,
+        media_id: String,
+        mimetype: String,
+        byte_size: Number,
+        width: Number,
+        height: Number,
+        extracted_text: String,
+        extraction_status: String
     },
     baseVersion: Number,
     nodeSettings: {
@@ -27,6 +36,22 @@ var NodeSchema = new Schema({
         graveyardState: String
     },
     isArchived: Boolean,
-    sortValue: Number
+    color: String,
+    sortValue: Number,
+    reminders: [
+        {
+            state: String,
+            description: String,
+            serverId: String,
+            due: {
+                year: Number,
+                month: Number,
+                day: Number,
+                hour: Number,
+                minute: Number,
+                second: Number
+            }
+        }
+    ]
 });
 mongoose.model('Node', NodeSchema);
