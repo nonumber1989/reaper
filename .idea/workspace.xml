@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56af5e27-1182-4564-8a5d-83d0466cf579" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/keep/Node.js" afterPath="$PROJECT_DIR$/server/models/keep/Node.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/keep/Nodes.js" afterPath="$PROJECT_DIR$/server/models/keep/Nodes.js" />
     </list>
     <ignored path="reaper.iws" />
@@ -39,8 +38,8 @@
       <file leaf-file-name="Nodes.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/models/keep/Nodes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43867925" vertical-offset="36" max-vertical-offset="884">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.10023585" vertical-offset="0" max-vertical-offset="884">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -328,8 +327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/models/keep/Nodes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43867925" vertical-offset="36" max-vertical-offset="884">
-          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.10023585" vertical-offset="0" max-vertical-offset="884">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding />
         </state>
       </provider>

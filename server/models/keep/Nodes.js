@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Node = require(./Node);
+var Node = require('./Node');
 var Schema = mongoose.Schema;
 
 var NodesSchema = new Schema({
