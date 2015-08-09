@@ -13,28 +13,37 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 
 var server = restify.createServer();
 server.use(logger('dev'));
+
 //customer restify header
 var restifyHeader = function (req, res, next) {
     // CORS headers
     res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    // Set custom headers for CORS
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-    if (req.method == 'OPTIONS') {
-        res.status(200).end();
-    } else {
-        next();
-    }
+    res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
+    next();
 }
 server.use(restifyHeader);
-server.use(restify.CORS());
-// not validate user for now
-//server.use(validateRequest);
+//for CORS OPTIONS method filter
+var unknownMethodHandler = function(req, res, next) {
+    if (req.method.toLowerCase() === 'options') {
+        console.log('received an options method request');
+        if (res.methods.indexOf('OPTIONS') === -1) res.methods.push('OPTIONS');
+        res.header('Access-Control-Allow-Credentials', true);
+        res.header('Access-Control-Allow-Headers', 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
+        res.header('Access-Control-Allow-Methods', res.methods.join(','));
+        res.header('Access-Control-Allow-Origin',  req.headers.origin);
+        return res.send(200);
+    } else{
+        return res.send(new restify.MethodNotAllowedError());
+    }
+}
 
-server
-    .use(restify.fullResponse())
-    .use(restify.bodyParser())
+server.on('MethodNotAllowed', unknownMethodHandler);
+
+// not validate user for now
+server.use(validateRequest);
+server.use(restify.fullResponse());
+server.use(restify.bodyParser());
 
 server.get("/", restify.serveStatic({
     directory: '../blade/app',

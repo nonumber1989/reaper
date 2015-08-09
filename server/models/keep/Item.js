@@ -186,7 +186,7 @@ var ItemSchema = new Schema({
                     container: String,
                     containerId: String,
                     primary: Boolean,
-                    visibility: String,
+                    visibility: String
                 }
             }
         ],
