@@ -37,9 +37,7 @@ var unknownMethodHandler = function(req, res, next) {
         return res.send(new restify.MethodNotAllowedError());
     }
 }
-
 server.on('MethodNotAllowed', unknownMethodHandler);
-
 // not validate user for now
 server.use(validateRequest);
 server.use(restify.fullResponse());
