@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="56af5e27-1182-4564-8a5d-83d0466cf579" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controllers/keep/Keep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/configurations/router.js" afterPath="$PROJECT_DIR$/server/configurations/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/configurations/validateRequest.js" afterPath="$PROJECT_DIR$/server/configurations/validateRequest.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="56af5e27-1182-4564-8a5d-83d0466cf579" name="Default" comment="" />
     <ignored path="reaper.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,8 +46,8 @@
       <file leaf-file-name="Keep.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/controllers/keep/Keep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7733333" vertical-offset="698" max-vertical-offset="1598">
-              <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.19444445" vertical-offset="658" max-vertical-offset="1598">
+              <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -592,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/controllers/keep/Keep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7733333" vertical-offset="698" max-vertical-offset="1598">
-          <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.19444445" vertical-offset="658" max-vertical-offset="1598">
+          <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
           <folding />
         </state>
       </provider>
