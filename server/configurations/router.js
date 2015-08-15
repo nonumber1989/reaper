@@ -12,8 +12,8 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 })
 
 var server = restify.createServer({
-  //certificate: fs.readFileSync('/home/seven/iborrow/TLS/ryans-cert.pem'),
-  //key: fs.readFileSync('/home/seven/iborrow/TLS/ryans-key.pem'),
+  certificate: fs.readFileSync('/home/seven/iborrow/TLS/ryans-cert.pem'),
+  key: fs.readFileSync('/home/seven/iborrow/TLS/ryans-key.pem'),
   name: 'sevenup'
 });
 server.use(logger('dev'));
