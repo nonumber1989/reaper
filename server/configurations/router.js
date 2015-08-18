@@ -55,6 +55,8 @@ server.get("/", restify.serveStatic({
 // User Start
 server.post('/user/login', auth.login);
 // User End
+//google book api test
+server.get( "/googleBook/:isbn", controllers.googleBook.fetchGoogleBook)
 
 // Article Start
 server.post("/articles", controllers.article.createArticle)
@@ -87,14 +89,3 @@ if (process.env.environment == 'production')
     process.on('uncaughtException', function (err) {
         console.error(JSON.parse(JSON.stringify(err, ['stack', 'message', 'inner'], 2)))
     })
-
-var client = restify.createJsonClient({
-    url: 'https://www.googleapis.com'
-});
-
-client.get('/books/v1/volumes?q=isbn:0716604892&key=AIzaSyD0mWVqOnQmDYpYIKZXTvvHoAqU2Q_EQyQ	', function(err, req, res, obj) {
-    if(err){
-        console.log("error-----"+err);
-    }
-    console.log('%j', obj);
-});
