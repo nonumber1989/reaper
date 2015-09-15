@@ -16,7 +16,7 @@ make sure you have install nodejs environment and MongodDB
 
     git clone https://github.com/nonumber1989/reaper
     npm install 
-    node index.js
+    node server.js
     
 User can use Rest Client or other rest utils to preview 
 
