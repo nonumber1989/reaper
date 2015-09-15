@@ -9,14 +9,14 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     id: String,
-    userId: String,
+    loc_id: String,
     name: String,
     avatar: String,
     alt: String,
-    relation: contact,
+    relation: String,
     created: Date,
-    locationId: Number,
-    locationName: String,
+    loc_id: Number,
+    loc_name: String,
     desc: String
 });
 mongoose.model('User', UserSchema);

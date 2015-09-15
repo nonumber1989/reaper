@@ -5,8 +5,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var CollectionSchema = new Schema({
-    book: Book,
-    bookId: String,
+    book: String,
+    book_id: String,
     comment: String,
     id: String,
     rating: {

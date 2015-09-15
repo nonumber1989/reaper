@@ -10,7 +10,7 @@ var Schema = mongoose.Schema;
 var SimpleUserSchema = new Schema({
     id: String,
     name: String,
-    userId: String,
+    uid: String,
     alt: String,
     avatar: String
 });

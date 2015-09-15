@@ -5,8 +5,8 @@ var CommentSchema = new Schema({
     id: String,
     title: String,
     alt: String,
-    author: User,
-    book: Book,
+    author: String,
+    book: String,
     rating: {
         max: Number,
         value: Number,

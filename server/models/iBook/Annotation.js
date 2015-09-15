@@ -6,20 +6,20 @@ var Schema = mongoose.Schema;
 
 var AnnotationSchema = new Schema({
     id: String,
-    bookId: String,
-    book: Book,
-    authorId: String,
-    authorUser: User,
+    book_id: String,
+    book: String,
+    author_id: String,
+    author_user: User,
     chapter: String,
-    pageNo: Number,
+    page_no: Number,
     privacy: Number,
     abstract: String,
     content: String,
     abstract_photo: String,
     photos: {},
-    lastPhoto: String,
-    commentsCount: Number,
-    hasMath: Boolean,
+    last_photo: String,
+    comments_count: Number,
+    hasmath: Boolean,
     time: Date
 });
 mongoose.model('Annotation', AnnotationSchema);

@@ -6,8 +6,8 @@ var BookSchema = new Schema({
     isbn10: String,
     isbn13: String,
     title: String,
-    originTitle: String,
-    altTitle: String,
+    origin_title: String,
+    alt_title: String,
     subtitle: String,
     url: String,
     alt: String,
@@ -20,7 +20,7 @@ var BookSchema = new Schema({
     author: [String],
     translator: [String],
     publisher: String,
-    publishDate: String,
+    pubdate: String,
     rating: {max: Number, numRaters: Number, average: Number, min: Number},
     tags: [
         {count: Number, name: String}
@@ -32,10 +32,10 @@ var BookSchema = new Schema({
         title: String
     },
     pages: Number,
-    authorIntroduction: String,
+    author_intro: String,
     summary: String,
     catalog: String,
-    eBookUrl: String,
-    eBookPrice: Number
+    ebook_url: String,
+    ebook_price: Number
 });
 mongoose.model('Book', BookSchema);
