@@ -12,9 +12,9 @@ fs.readdirSync(controllers_path).forEach(function (file) {
 })
 
 var server = restify.createServer({
-  certificate: fs.readFileSync('./server/TLS/ryans-cert.pem'),
-  key: fs.readFileSync('./server/TLS/ryans-key.pem'),
-  name: 'sevenup'
+  //certificate: fs.readFileSync('./server/TLS/ryans-cert.pem'),
+  //key: fs.readFileSync('./server/TLS/ryans-key.pem'),
+  //name: 'sevenup'
 });
 server.use(logger('dev'));
 
@@ -43,20 +43,13 @@ var unknownMethodHandler = function(req, res, next) {
 }
 server.on('MethodNotAllowed', unknownMethodHandler);
 // not validate user for now
-server.use(validateRequest);
+//server.use(validateRequest);
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
-
-server.get("/", restify.serveStatic({
-    directory: '../blade/app',
-    default: 'index.html'
-}));
 
 // User Start
 server.post('/user/login', auth.login);
 // User End
-//google book api test
-server.get( "/googleBook/:isbn", controllers.googleBook.fetchGoogleBook)
 
 // Article Start
 server.post("/articles", controllers.article.createArticle)
