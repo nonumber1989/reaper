@@ -2,7 +2,9 @@
  * Created by seven on 2015/9/22.
  */
 var mongoose = require("mongoose");
+var SimpleUser = require("./SimpleUser");
 var Schema = mongoose.Schema;
+
 
 var SimpleBookSchema = new Schema({
     id: String,
@@ -15,6 +17,9 @@ var SimpleBookSchema = new Schema({
     translator:[String],
     status:String,
     startTime:Date,
-    endTime:Date
+    endTime:Date,
+    user: [
+        { type: Schema.Types.ObjectId, ref: 'SimpleUser' }
+    ]
 });
 mongoose.model('SimpleBook', SimpleBookSchema);
