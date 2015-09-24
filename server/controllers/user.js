@@ -12,6 +12,7 @@ exports.createUser = function (req, res, next) {
                 data: "Error occured: " + err
             })
         } else {
+            User.password = undefined;
             res.json({
                 type: true,
                 data: User
