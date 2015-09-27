@@ -6,7 +6,7 @@ ObjectId = mongoose.Types.ObjectId
 exports.createUser = function (req, res, next) {
     Comment
         .findOne({ text: "Happy" })
-        .populate('owner')
+        //.populate('owner')
         .exec(function (err, comment) {
             if (err) return handleError(err);
 

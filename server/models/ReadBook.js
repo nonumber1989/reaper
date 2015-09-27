@@ -3,16 +3,16 @@
  */
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var User = require("./User");
 
-var ReadSchema = new Schema({
+var ReadBookSchema = new Schema({
     id: String,
+    user:{ type: Schema.Types.ObjectId, ref: 'User' },
     description: String,
     readBooks: [
         {
-            id: String,
             title: String,
             description: String,
-            access: String,
             updated: Date,
             created: Date,
             bookCount: Number,
@@ -22,4 +22,4 @@ var ReadSchema = new Schema({
     ]
 
 });
-mongoose.model('Read', ReadSchema);
+mongoose.model('ReadBook', ReadBookSchema);

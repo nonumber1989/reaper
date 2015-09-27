@@ -3,20 +3,20 @@
  */
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var User = require("./User");
 
-var BorrowSchema = new Schema({
+var OwnBookSchema = new Schema({
     id:String,
+    user:{ type: Schema.Types.ObjectId, ref: 'User' },
     description:String,
-    borrowBooks:[{
-        id:String,
+    ownBooks:[{
         isbn10:String,
         isbn13:String,
         created:Date,
         updated:Date,
         status:String,
-        userId:String,
         description:String,
         count:Number
     }]
 });
-mongoose.model('Borrow', BorrowSchema);
+mongoose.model('OwnBook', OwnBookSchema);
