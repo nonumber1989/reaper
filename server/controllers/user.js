@@ -1,23 +1,11 @@
 var mongoose = require('mongoose'),
     User = mongoose.model("User")
-    Comment = mongoose.model("Comment")
-ObjectId = mongoose.Types.ObjectId
+    Insight = mongoose.model("Insight")
+    ObjectId = mongoose.Types.ObjectId
 
 exports.createUser = function (req, res, next) {
-    Comment
-        .findOne({ text: "Happy" })
-        //.populate('owner')
-        .exec(function (err, comment) {
-            if (err) return handleError(err);
-
-            console.log('The comment is %s', comment);
-            // prints "The creator is Aaron"
-
-            console.log('The owner is %s', comment.owner);
-            // prints "The creators age is null'
-        })
-    var UserModel = new User(req.body);
-    UserModel.save(function (err, User) {
+    var userModel = new User(req.body);
+    userModel.save(function (err, user) {
         if (err) {
             res.status(500);
             res.json({
@@ -26,17 +14,18 @@ exports.createUser = function (req, res, next) {
             })
         } else {
 
-            var comment = new Comment({
-                owner:[User._id,User._id]
+            var insight = new Insight({
+                user:user._id,
+                description:"Insight for user"+user._id
             });
-            comment.save(function (err) {
+            insight.save(function (err) {
                 if (err) return handleError(err);
                 // thats it!
             });
-            User.password = undefined;
+            user.password = undefined;
             res.json({
                 type: true,
-                data: User
+                data: user
             })
         }
     })
