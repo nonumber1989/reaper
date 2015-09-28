@@ -75,10 +75,10 @@ server.get("/comments/:id", controllers.comment.viewComment)
 // Comment End
 
 //ownBook start
-server.put("/books/own/", controllers.comment.updateComment)
-server.del("/books/own/", controllers.comment.deleteComment)
-server.get("/books/own/:isbn", controllers.comment.viewComment)
-server.post("/books/own", controllers.comment.viewComment)
+server.put("/books/own/", controllers.insight.addOwnBook)
+//server.del("/books/own/", controllers.comment.deleteComment)
+//server.get("/books/own/:isbn", controllers.comment.viewComment)
+//server.post("/books/own", controllers.comment.viewComment)
 
 
 var port = process.env.PORT || 3000;

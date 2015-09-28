@@ -33,7 +33,11 @@ exports.createInsight = function (req, res, next) {
  * @param next
  */
 exports.addOwnBook = function (req, res, next) {
-
+    console.log('The book info is %s', req.body);
+    res.json({
+        type: true,
+        data: req.body
+    })
 }
 
 exports.deleteOwnBook = function (req, res, next) {
