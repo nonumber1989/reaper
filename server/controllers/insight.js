@@ -33,11 +33,29 @@ exports.createInsight = function (req, res, next) {
  * @param next
  */
 exports.addOwnBook = function (req, res, next) {
-    console.log('The book info is %s', req.body);
-    res.json({
-        type: true,
-        data: req.body
-    })
+    //5609444a06fac9840c39adfa
+    var ownBook = req.body;
+    //var userId = req.query.id;
+    var userId = '5609444a06fac9840c39adfa';
+    Insight.findOneAndUpdate(
+        {user: userId},
+        {$push: {ownBooks: ownBook}},
+        {safe: true, upsert: true},
+        function (err, insight) {
+            if (err) {
+                res.status(500);
+                res.json({
+                    type: false,
+                    data: "Error occured: " + err
+                })
+            } else {
+                res.json({
+                    type: true,
+                    data: insight
+                })
+            }
+        }
+    );
 }
 
 exports.deleteOwnBook = function (req, res, next) {
