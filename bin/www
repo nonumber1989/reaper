@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../index');
 var mongoose = require('../server/configurations/mongoose');
-var debug = require('debug')('test:server');
+var debug = require('debug')('reaper:server');
 var http = require('http');
 
 /**

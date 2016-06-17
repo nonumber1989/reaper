@@ -11,7 +11,6 @@ fs.readdirSync(routers_path).forEach(function(file) {
 });
 
 var reaperRouters = function(reaper) {
-	reaper.use('/reaper', router.reaper);
 	reaper.use('/speakers', router.speakers);
 	reaper.use('/accounts', router.accounts);
 	reaper.use('/gridfs', router.gridfs);
