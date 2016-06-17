@@ -10,13 +10,12 @@ fs.readdirSync(routers_path).forEach(function(file) {
 	}
 });
 
-var thorRouters = function(thor) {
-	thor.use('/thor', router.thor);
-	thor.use('/speakers', router.speakers);
-	thor.use('/accounts', router.accounts);
-	thor.use('/schedules', router.schedules);
-	thor.use('/gridfs', router.gridfs);
-	console.log('thor router');
+var reaperRouters = function(reaper) {
+	reaper.use('/reaper', router.reaper);
+	reaper.use('/speakers', router.speakers);
+	reaper.use('/accounts', router.accounts);
+	reaper.use('/gridfs', router.gridfs);
+	console.log('reaper router');
 };
 
-module.exports.routers = thorRouters;
+module.exports.routers = reaperRouters;

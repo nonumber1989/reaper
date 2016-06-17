@@ -4,7 +4,7 @@ var fs = require('fs');
 var express = require('express');
 var router = express.Router();
 // create or use an existing mongodb-native db instance
-var db = new mongo.Db('thor', new mongo.Server("127.0.0.1", 27017));
+var db = new mongo.Db('reaper', new mongo.Server("127.0.0.1", 27017));
 
 router.get('/', function(req, res, next) {
 	// make sure the db instance is open before passing into `Grid`

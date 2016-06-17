@@ -10,38 +10,37 @@ var commonUtils = require('../services/commonUtils');
 
 
 //setup the express server
-var thor = express();
+var reaper = express();
 var router = require('./router');
 var SECRET = 'shhhhhhared-secret';
-//thor.use(commonUtils.unless(['/katana','/accounts/authenticate'], expressJwt({secret: SECRET,requestProperty: 'x-access-token'})));
-thor.use(function(req, res, next) {
+//reaper.use(commonUtils.unless(['/katana','/accounts/authenticate'], expressJwt({secret: SECRET,requestProperty: 'x-access-token'})));
+reaper.use(function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
+  res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Aureaperization,Api-Version');
   next();
 });
 
-thor.use(express.query());
+reaper.use(express.query());
 // uncomment after placing your favicon in /public
-//thor.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-thor.use(logger('dev'));
-thor.use(bodyParser.json());
-thor.use(bodyParser.urlencoded({
+//reaper.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+reaper.use(logger('dev'));
+reaper.use(bodyParser.json());
+reaper.use(bodyParser.urlencoded({
   extended: false
 }));
-thor.use(cookieParser());
+reaper.use(cookieParser());
 //static server
-//thor.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
-router.routers(thor);
-// thor.use('/thor', routes.thor);
-// thor.use('/jsonschema', routes.jsonschema);
-// thor.use('/speakers', routes.speakers);
-// thor.use('/accounts', routes.accounts);
-// thor.use('/schedules', routes.schedules);
-// thor.use('/gridfs', routes.gridfs);
+//reaper.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
+router.routers(reaper);
+// reaper.use('/reaper', routes.reaper);
+// reaper.use('/jsonschema', routes.jsonschema);
+// reaper.use('/speakers', routes.speakers);
+// reaper.use('/accounts', routes.accounts);
+
 // catch 404 and forward to error handler
-thor.use(function(req, res, next) {
+reaper.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   res.json({
@@ -54,8 +53,8 @@ thor.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (thor.get('env') === 'development') {
-  thor.use(function(err, req, res, next) {
+if (reaper.get('env') === 'development') {
+  reaper.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
       message: err.message,
@@ -66,7 +65,7 @@ if (thor.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-thor.use(function(err, req, res, next) {
+reaper.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
     message: err.message,
@@ -74,4 +73,4 @@ thor.use(function(err, req, res, next) {
   });
 });
 
-module.exports = thor;
+module.exports = reaper;

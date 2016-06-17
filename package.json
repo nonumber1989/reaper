@@ -1,20 +1,20 @@
 {
-  "name": "thor",
+  "name": "reaper",
   "version": "0.0.0",
-  "description": "thor platform",
-  "homepage": "thor",
-  "author": {
+  "description": "reaper platform",
+  "homepage": "reaper",
+  "aureaper": {
     "name": "steven xu",
     "email": "steven.xu01@sap.com",
     "url": "nonumber1989"
   },
-  "repository": "https://github.wdf.sap.corp/thor",
+  "repository": "https://github.wdf.sap.corp/reaper",
   "license": "MIT",
   "files": [
     "index.js"
   ],
   "keywords": [
-    "thor",
+    "reaper",
     "express",
     "mongoose"
   ],

@@ -27,8 +27,8 @@ router.get('/', function(req, res, next) {
 router.post('/json', function(req, res, next) {
 	var query = requestUtils.getQuery(req);
 	var title = query.title;
-	var thorObject = req.body;
-	var schema = schemaUtils.jsonSchema(title, thorObject);
+	var reaperObject = req.body;
+	var schema = schemaUtils.jsonSchema(title, reaperObject);
 	res.json(schema);
 });
 
@@ -36,18 +36,18 @@ router.post('/json', function(req, res, next) {
 router.post('/mongoose', function(req, res, next) {
 	var query = requestUtils.getQuery(req);
 	var title = query.title;
-	var thorObject = req.body;
+	var reaperObject = req.body;
 	var filePath = "./server/models/";
 	var fileName = filePath + title + ".js";
 	var mongooseSchema = Promise.promisify(schemaUtils.mongooseSchema);
 
 	var routerPath = "./server/configurations/router.js";
-	var replaceTemplate = "thor.use('/theRouter', router.theRouter);"
-	mongooseSchema(title, thorObject, fileName).then(function(schema) {
+	var replaceTemplate = "reaper.use('/theRouter', router.theRouter);"
+	mongooseSchema(title, reaperObject, fileName).then(function(schema) {
 		//modify the routers configuration
 		fs.readFileAsync(routerPath, "utf8").then(function(content) {
-			var replace = replaceTemplate.replace(/theRouter/g, title.toLowerCase() + 's') + " \n" + "	console.log('thor router');";
-			var targetContent = content.replace(/console.log\(\'thor router\'\);/g, replace);
+			var replace = replaceTemplate.replace(/theRouter/g, title.toLowerCase() + 's') + " \n" + "	console.log('reaper router');";
+			var targetContent = content.replace(/console.log\(\'reaper router\'\);/g, replace);
 			return targetContent;
 		}).then(function(value) {
 			fs.writeFileAsync(routerPath, value, 'utf8').then(function(result) {
