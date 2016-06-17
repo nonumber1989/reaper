@@ -1,42 +1,43 @@
 {
-  "name": "reaper",
+  "name": "thor",
   "version": "0.0.0",
-  "description": "seven up platform",
-  "homepage": "reaper",
+  "description": "thor platform",
+  "homepage": "thor",
   "author": {
     "name": "steven xu",
-    "email": "nonumber1989@gmail.com",
+    "email": "steven.xu01@sap.com",
     "url": "nonumber1989"
   },
-  "repository": "nonumber1989@gmail.com/reaper",
+  "repository": "https://github.wdf.sap.corp/thor",
   "license": "MIT",
   "files": [
     "index.js"
   ],
   "keywords": [
-    "reaper"
+    "thor",
+    "express",
+    "mongoose"
   ],
-  "dependencies": {
-    "bson": "^0.3.1",
-    "ecstatic": "0.8.0",
-    "jwt-simple": "^0.3.0",
-    "mongodb": "^2.0.25",
-    "mongoose": "^4.1.2",
-    "mongoose-paginate": "^4.2.0",
-    "morgan": "^1.6.0",
-    "restify": "^3.0.3"
-  },
-  "devDependencies": {
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "load-grunt-tasks": "^1.0.0",
-    "time-grunt": "^1.0.0",
-    "grunt-mocha-cli": "^1.11.0",
-    "jshint-stylish": "^1.0.0"
-  },
+  "private": true,
   "scripts": {
-    "test": "grunt"
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "body-parser": "~1.13.2",
+    "bson": "^0.4.20",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "express-jwt": "^3.3.0",
+    "gridfs-stream": "^1.1.1",
+    "json-schema-utils": "^1.0.8",
+    "jsonwebtoken": "^5.5.4",
+    "jwt-simple": "^0.4.0",
+    "lodash": "^4.11.1",
+    "mongodb": "2.1.16",
+    "mongoose": "^4.3.4",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
   }
 }

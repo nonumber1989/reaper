@@ -1,18 +1,19 @@
-'use strict';
+#!/usr/bin/env node
 
-var http = require('http');
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var mongoose = require('../server/configurations/mongoose');
 var debug = require('debug')('test:server');
-//for mongodb connection
-require('./server/configurations/mongoose');
-var configuration = require('./server/configuration');
-var app = require('./server/configurations/server');
-
+var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || configuration.port);
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -88,5 +89,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-
