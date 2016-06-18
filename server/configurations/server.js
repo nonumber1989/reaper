@@ -35,7 +35,6 @@ reaper.use(cookieParser());
 //reaper.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
 router.routers(reaper);
 // reaper.use('/reaper', routes.reaper);
-// reaper.use('/jsonschema', routes.jsonschema);
 // reaper.use('/speakers', routes.speakers);
 // reaper.use('/accounts', routes.accounts);
 
