@@ -1,12 +1,15 @@
-'use strict';
-
+var fs = require('fs');
 var http = require('http');
+var https = require('https');
 var debug = require('debug')('test:server');
 //for mongodb connection
 require('./server/configurations/mongoose');
 var configuration = require('./server/configuration');
 var app = require('./server/configurations/server');
-
+//for https 
+var privateKey  = fs.readFileSync('./server/TLS/ryans-key.pem', 'utf8');
+var certificate = fs.readFileSync('./server/TLS/ryans-cert.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 /**
  * Get port from environment and store in Express.
@@ -19,15 +22,20 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+httpServer.listen(port);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
+
+var httpsPort = normalizePort(configuration.httpsPort);
+httpsServer.listen(httpsPort);
+httpsServer.on('error', onError);
+httpsServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -82,7 +90,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
+  var addr = httpServer.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
