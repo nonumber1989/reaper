@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -35,8 +34,6 @@ reaper.use(cookieParser());
 //reaper.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
 router.routers(reaper);
 // reaper.use('/reaper', routes.reaper);
-// reaper.use('/speakers', routes.speakers);
-// reaper.use('/accounts', routes.accounts);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {

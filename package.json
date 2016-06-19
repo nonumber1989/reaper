@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "description": "reaper platform",
   "homepage": "reaper",
-  "aureaper": {
+  "author": {
     "name": "steven xu",
-    "email": "steven.xu01@sap.com",
-    "url": "nonumber1989"
+    "email": "nonumber1989@gmail",
+    "url": "https://github.com/reaper"
   },
-  "repository": "https://github.wdf.sap.corp/reaper",
+  "repository": "https://github.com/reaper",
   "license": "MIT",
   "files": [
     "index.js"
@@ -31,8 +31,7 @@
     "express": "~4.13.1",
     "express-jwt": "^3.3.0",
     "gridfs-stream": "^1.1.1",
-    "jsonwebtoken": "^5.5.4",
-    "jwt-simple": "^0.4.0",
+    "jsonwebtoken": "^7.0.1",
     "lodash": "^4.11.1",
     "mongodb": "2.1.16",
     "mongoose": "^4.3.4",
