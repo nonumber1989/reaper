@@ -5,54 +5,45 @@ var mongoose = require('mongoose');
 var Account = mongoose.model("Account");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
+var responseUtils = require('../services/responseUtils');
+
+var Promise = require("bluebird");
+mongoose.Promise = Promise;
+
 router.get('/', function(req, res, next) {
   var pagenation = requestUtils.getPagenation(req);
-  Account.find({}, {}, pagenation, function(err, accounts) {
-    if (err) {
-      res.status(500);
-      res.json({
-        type: false,
-        data: "Error occured: " + err
-      });
+  var queryPromise = Account.find({}, {}, pagenation).exec();
+  queryPromise.then(function(accounts) {
+    if (accounts) {
+      res.json(accounts);
     } else {
-      if (accounts) {
-        res.json({
-          type: true,
-          data: accounts
-        });
-      } else {
-        res.json({
-          type: false,
-          data: "no accounts found"
-        });
-      }
+      responseUtils.resourcesNotFoundError(res);
     }
-  })
+  }).catch(function(err) {
+    responseUtils.internalError(res,err);
+  });
 });
 
 //get the account by id
 router.get('/:id', function(req, res, next) {
-  Account.findById(new ObjectId(req.params.id), function(err, account) {
-    if (err) {
-      res.status(500);
-      res.json({
-        type: false,
-        data: "Error occured: " + err
-      })
+  var queryPromise = Account.findById(new ObjectId(req.params.id)).exec();
+  queryPromise.then(function(account) {
+    if (account) {
+      res.json(question);
     } else {
-      if (account) {
-        res.json({
-          type: true,
-          data: account
-        })
-      } else {
-        res.json({
-          type: false,
-          data: "account: " + req.params.id + " not found"
-        })
-      }
+      res.status(404);
+      res.json({
+        status: 404,
+        errorMessage: "record " + req.params.id + " not found"
+      });
     }
-  })
+  }).catch(function(err) {
+    res.status(500);
+    res.json({
+      status: 500,
+      errorMessage: err
+    });
+  });
 });
 //create an account
 router.post('/', function(req, res, next) {

@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Question = mongoose.model("Question");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
-
+var responseUtils = require('../services/responseUtils');
 var Promise = require("bluebird");
 mongoose.Promise = Promise;
 
@@ -16,17 +16,10 @@ router.get('/', function(req, res, next) {
         if (questions) {
             res.json(questions);
         } else {
-            res.json({
-                status: 404,
-                errorMessage: "no records found"
-            });
+            responseUtils.resourcesNotFoundError(res);
         }
     }).catch(function(err) {
-        res.status(500);
-        res.json({
-            status: 500,
-            errorMessage: err
-        });
+        responseUtils.internalError(res, err);
     });
 });
 
@@ -36,17 +29,10 @@ router.get('/:id', function(req, res, next) {
         if (question) {
             res.json(question);
         } else {
-            res.json({
-                status: 404,
-                errorMessage: "record " + req.params.id + " not found"
-            });
+            responseUtils.resourceNotFoundError(res, req.params.id);
         }
     }).catch(function(err) {
-        res.status(500);
-        res.json({
-            status: 500,
-            errorMessage: err
-        });
+        responseUtils.internalError(res, err);
     });
 });
 //create a new question
@@ -55,11 +41,7 @@ router.post('/', function(req, res, next) {
     theQuestion.save().then(function(question) {
         res.json(question);
     }).catch(function(err) {
-        res.status(500);
-        res.json({
-            status: 500,
-            errorMessage: err
-        });
+        responseUtils.internalError(res, err);
     });
 
 });
@@ -70,19 +52,12 @@ router.put('/:id', function(req, res, next) {
         title: theQuestion.title
     }, function(err, question) {
         if (err) {
-            res.status(500);
-            res.json({
-                status: 500,
-                errorMessage: err
-            });
+            responseUtils.internalError(res, err);
         } else {
             if (question) {
                 res.json(question);
             } else {
-                res.json({
-                    status: 404,
-                    errorMessage: "record " + req.params.id + " not found"
-                });
+                responseUtils.resourceNotFoundError(res, req.params.id);
             }
         }
     })
@@ -90,16 +65,9 @@ router.put('/:id', function(req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
     Question.findByIdAndRemove(new Object(req.params.id)).then(function() {
-        res.json({
-            status: 200,
-            data: "record " + req.params.id + " deleted successfully"
-        })
+        responseUtils.deletedSuccessfully(res, req.params.id)
     }).catch(function(err) {
-        res.status(500);
-        res.json({
-            status: 500,
-            errorMessage: err
-        });
+        responseUtils.internalError(res, err);
     })
 });
 
