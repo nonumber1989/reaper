@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
       responseUtils.resourcesNotFoundError(res);
     }
   }).catch(function(err) {
-    responseUtils.internalError(res,err);
+    responseUtils.internalError(res, err);
   });
 });
 
@@ -29,83 +29,47 @@ router.get('/:id', function(req, res, next) {
   var queryPromise = Account.findById(new ObjectId(req.params.id)).exec();
   queryPromise.then(function(account) {
     if (account) {
-      res.json(question);
+      res.json(account);
     } else {
-      res.status(404);
-      res.json({
-        status: 404,
-        errorMessage: "record " + req.params.id + " not found"
-      });
+      responseUtils.resourceNotFoundError(res, req.params.id);
     }
   }).catch(function(err) {
-    res.status(500);
-    res.json({
-      status: 500,
-      errorMessage: err
-    });
+    responseUtils.internalError(res, err);
   });
 });
 //create an account
 router.post('/', function(req, res, next) {
   var accountModel = new Account(req.body);
-  accountModel.save(function(err, account) {
-    if (err) {
-      res.status(500);
-      res.json({
-        type: false,
-        data: "Error occured: " + err
-      })
-    } else {
-      res.json({
-        type: true,
-        data: account
-      })
-    }
-  })
+  accountModel.save().then(function(account) {
+    res.json(account);
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
 });
 
 // update the account by id
 router.put('/:id', function(req, res, next) {
   var accountModel = new Account(req.body);
-  Account.findByIdAndUpdate(new ObjectId(req.params.id), accountModel, function(err, account) {
-    if (err) {
-      res.status(500);
-      res.json({
-        type: false,
-        data: "Error occured: " + err
-      })
+  var updatePromise = Account.findByIdAndUpdate(new ObjectId(req.params.id), accountModel).exec();
+  updatePromise.then(function(account) {
+    if (account) {
+      res.json(account);
     } else {
-      if (account) {
-        res.json({
-          type: true,
-          data: account
-        })
-      } else {
-        res.json({
-          type: false,
-          data: "account: " + req.params.id + " not found"
-        })
-      }
+      responseUtils.resourceNotFoundError(res, req.params.id);
     }
-  })
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
+
 });
 
 //delete by id
 router.delete('/:id', function(req, res, next) {
-  Account.findByIdAndRemove(new Object(req.params.id), function(err, article) {
-    if (err) {
-      res.status(500);
-      res.json({
-        type: false,
-        data: "Error occured: " + err
-      })
-    } else {
-      res.json({
-        type: true,
-        data: "Account: " + req.params.id + " deleted successfully"
-      })
-    }
-  })
+  Account.findByIdAndRemove(new Object(req.params.id)).then(function(account) {
+    responseUtils.deletedSuccessfully(res, req.params.id)
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
 });
 
 var SECRET = 'shhhhhhared-secret';
