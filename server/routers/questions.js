@@ -10,6 +10,7 @@ mongoose.Promise = Promise;
 
 //view questions by pagenation
 router.get('/', function(req, res, next) {
+    // var account = requestUtils.getAccount(req);
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Question.find({}, {}, pagenation).exec();
     queryPromise.then(function(questions) {

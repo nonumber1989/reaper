@@ -5,19 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
-var commonUtils = require('../services/commonUtils');
-
+var configuration = require('./../configuration');
 
 //setup the express server
 var reaper = express();
 var router = require('./router');
-var SECRET = 'shhhhhhared-secret';
-//reaper.use(commonUtils.unless(['/katana','/accounts/authenticate'], expressJwt({secret: SECRET,requestProperty: 'x-access-token'})));
 reaper.use(function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Aureaperization,Api-Version');
+  res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
   next();
 });
 
@@ -30,8 +27,17 @@ reaper.use(bodyParser.urlencoded({
   extended: false
 }));
 reaper.use(cookieParser());
+//for the jwt 
+//Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlN0ZXZlbi5YdSIsImVtYWlsIjoic3RldmVuLnh1QGdtYWlsLmNvbSIsInBob25lIjoiMTIzNDU2Nzg5IiwiaWQiOjEyMywiaWF0IjoxNDY2NDMzNTk4LCJleHAiOjE0NjcwMzgzOTh9.NCvZRmGtCWBgPlCj2jGRaFwP6n_8y59eoy000d6VMmI
+reaper.use(expressJwt({
+  secret: configuration.jwt.tokenSecret,
+  credentialsRequired: false
+}).unless({
+  path: ['/accounts/authenticate']
+}));
+
 //static server
-//reaper.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
+reaper.use('/reaper', express.static(path.join(process.cwd(), 'reaper/app')));
 router.routers(reaper);
 // reaper.use('/reaper', routes.reaper);
 

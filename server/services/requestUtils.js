@@ -1,4 +1,5 @@
 var url = require('url');
+var jwt = require('jsonwebtoken');
 
 var getPagenationByUrl = function(requestUrl) {
     var pagenation = url.parse(requestUrl, true).query;
@@ -17,6 +18,26 @@ var getPagenationByUrl = function(requestUrl) {
     return pagenation;
 };
 
+//from Header Or Query String
+var getToken = function(req) {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        return req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+        return req.query.token;
+    }
+    return null;
+}
+var getAccount = function(req) {
+    var token = getToken(req);
+    var decoded;
+    if (token) {
+        decoded = jwt.decode(token);
+    } else {
+        decoded = null;
+    }
+    return decoded;
+}
+
 exports.getPagenation = function(request) {
     if (request instanceof Object) {
         return getPagenationByUrl(request.url);
@@ -32,3 +53,5 @@ exports.getQuery = function(request) {
         return url.parse(request, true).query;
     }
 };
+
+exports.getAccount = getAccount;
