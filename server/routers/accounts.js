@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Account = mongoose.model("Account");
 var ObjectId = mongoose.Types.ObjectId;
+var authUtils = require('../services/authUtils');
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
@@ -72,30 +73,16 @@ router.delete('/:id', function(req, res, next) {
   });
 });
 
-var SECRET = 'shhhhhhared-secret';
-router.post('/authenticate', function(req, res, next) {
-  //TODO validate req.body.username and req.body.password
-  //if is invalid, return 401
-  if (!(req.body.username === '123456789' && req.body.password === 'seven')) {
-    res.send(401, 'Wrong user or password');
-    return;
-  }
 
+router.post('/authenticate', function(req, res, next) {
   var profile = {
     userName: 'Steven.Xu',
     email: 'steven.xu@gmail.com',
     phone: '123456789',
     id: 123
   };
-
-  // We are sending the profile inside the token
-  var token = jwt.sign(profile, SECRET, {
-    expiresInMinutes: 60 * 5
-  });
-
-  res.json({
-    token: token
-  });
+  var token = authUtils.generateToken(profile);
+  res.json(token);
 });
 
 module.exports = router;

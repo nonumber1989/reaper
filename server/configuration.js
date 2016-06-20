@@ -7,6 +7,6 @@ module.exports = {
 	"jwt": {
 		"jwtAlgorithm": "HS256",
 		"tokenSecret": "shhhhhhared-secret",
-		"expiresIn":"1s"
+		"expiresIn":"7d"
 	}
 };
