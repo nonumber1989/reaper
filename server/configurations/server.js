@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var configuration = require('./../configuration');
-
+var responseUtils = require('./../services/responseUtils');
 //setup the express server
 var reaper = express();
 var router = require('./router');
@@ -27,7 +27,7 @@ reaper.use(bodyParser.urlencoded({
   extended: false
 }));
 reaper.use(cookieParser());
-//for the jwt 
+//for the jwt
 //Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlN0ZXZlbi5YdSIsImVtYWlsIjoic3RldmVuLnh1QGdtYWlsLmNvbSIsInBob25lIjoiMTIzNDU2Nzg5IiwiaWQiOjEyMywiaWF0IjoxNDY2NDMzNTk4LCJleHAiOjE0NjcwMzgzOTh9.NCvZRmGtCWBgPlCj2jGRaFwP6n_8y59eoy000d6VMmI
 reaper.use(expressJwt({
   secret: configuration.jwt.tokenSecret,
@@ -43,12 +43,15 @@ router.routers(reaper);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  res.json({
-    message: err.message,
-    error: err
-  });
+  responseUtils.notFoundError(res);
+});
+//handle reaper application exception
+reaper.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    responseUtils.unauthorizedError(res, err);
+  } else {
+    responseUtils.internalError(res, err);
+  }
 });
 
 // error handlers

@@ -22,10 +22,16 @@ var resourcesNotFoundError = function(response, message) {
 	}
 };
 
+var notFoundError = function(response) {
+	responseCommon(response, 404, "Not Found");
+};
+
 var internalError = function(response, error) {
 	responseCommon(response, 500, error.message);
 };
-
+var unauthorizedError = function(response,error) {
+	responseCommon(response, 401, error.message);
+};
 var deletedSuccessfully = function(response, identification) {
 	if (identification) {
 		responseCommon(response, 200, "record " + identification + " has been deleted successfully");
@@ -37,4 +43,6 @@ var deletedSuccessfully = function(response, identification) {
 exports.resourceNotFoundError = resourceNotFoundError;
 exports.resourcesNotFoundError = resourcesNotFoundError;
 exports.internalError = internalError;
+exports.notFoundError = notFoundError;
+exports.unauthorizedError = unauthorizedError;
 exports.deletedSuccessfully = deletedSuccessfully;
