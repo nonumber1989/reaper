@@ -2,6 +2,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var QuestionSchema = new Schema({
+	survey: {
+		type: Schema.ObjectId,
+		ref: 'Survey'
+	},
 	title: String,
 	type: String,
 	choisce: String,

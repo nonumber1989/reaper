@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    var queryPromise = Question.findById(new ObjectId(req.params.id)).exec();
+    var queryPromise = Question.findById(new ObjectId(req.params.id)).populate('survey').exec();
     queryPromise.then(function(question) {
         if (question) {
             res.json(question);
@@ -36,7 +36,7 @@ router.get('/:id', function(req, res, next) {
         responseUtils.internalError(res, err);
     });
 });
-//create a new question
+
 router.post('/', function(req, res, next) {
     var theQuestion = new Question(req.body);
     theQuestion.save().then(function(question) {
@@ -51,17 +51,16 @@ router.put('/:id', function(req, res, next) {
     var theQuestion = new Question(req.body);
     Question.findByIdAndUpdate(new ObjectId(req.params.id), {
         title: theQuestion.title
-    }, function(err, question) {
-        if (err) {
-            responseUtils.internalError(res, err);
+    }).exec().then(function(question) {
+        if (question) {
+            res.json(question);
         } else {
-            if (question) {
-                res.json(question);
-            } else {
-                responseUtils.resourceNotFoundError(res, req.params.id);
-            }
+            responseUtils.resourceNotFoundError(res, req.params.id);
         }
-    })
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
+
 });
 
 router.delete('/:id', function(req, res, next) {
