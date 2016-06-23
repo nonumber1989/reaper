@@ -8,22 +8,6 @@ var responseUtils = require('../services/responseUtils');
 var Promise = require("bluebird");
 mongoose.Promise = Promise;
 
-//view questions by pagenation
-router.get('/', function(req, res, next) {
-    // var account = requestUtils.getAccount(req);
-    var pagenation = requestUtils.getPagenation(req);
-    var queryPromise = Question.find({}, {}, pagenation).exec();
-    queryPromise.then(function(questions) {
-        if (questions) {
-            res.json(questions);
-        } else {
-            responseUtils.resourcesNotFoundError(res);
-        }
-    }).catch(function(err) {
-        responseUtils.internalError(res, err);
-    });
-});
-
 router.get('/:id', function(req, res, next) {
     var queryPromise = Question.findById(new ObjectId(req.params.id)).populate('survey').exec();
     queryPromise.then(function(question) {

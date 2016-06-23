@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Survey = mongoose.model("Survey");
+var Question = mongoose.model("Question");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
@@ -10,10 +11,26 @@ mongoose.Promise = Promise;
 
 router.get('/', function(req, res, next) {
   var pagenation = requestUtils.getPagenation(req);
-  var queryPromise = Survey.find({}, {}, pagenation).exec();
+  var account = requestUtils.getAccount(req);
+  var queryPromise = Survey.find({creator:account.name}, {}, pagenation).exec();
   queryPromise.then(function(surveys) {
     if (surveys) {
       res.json(surveys);
+    } else {
+      responseUtils.resourcesNotFoundError(res);
+    }
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
+});
+
+router.get('/:id/questions', function(req, res, next) {
+  var pagenation = requestUtils.getPagenation(req);
+  var account = requestUtils.getAccount(req);
+  var queryPromise = Question.find({survey:req.params.id}, {}, pagenation).exec();
+  queryPromise.then(function(questions) {
+    if (questions) {
+      res.json(questions);
     } else {
       responseUtils.resourcesNotFoundError(res);
     }
@@ -36,7 +53,9 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  var account = requestUtils.getAccount(req);
   var theSurvey = new Survey(req.body);
+  theSurvey.creator = account.name;
   theSurvey.save().then(function(survey) {
     res.json(survey);
   }).catch(function(err) {

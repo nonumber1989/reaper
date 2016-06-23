@@ -16,6 +16,16 @@ var QuestionSchema = new Schema({
 	max: Number,
 	step: Number,
 	min: Number,
-	answer: Schema.Types.Mixed
+	answer: Schema.Types.Mixed,
+	//common schema
+	creator: String,
+	createdDate: {
+		type: Date,
+		default: Date.now
+	},
+	updatedDate: {
+		type: Date,
+		default: Date.now
+	}
 });
 mongoose.model('Question', QuestionSchema);

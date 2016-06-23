@@ -76,10 +76,9 @@ router.delete('/:id', function(req, res, next) {
 
 router.post('/authenticate', function(req, res, next) {
   var profile = {
-    userName: 'Steven.Xu',
+    name: 'nonumber1989',
     email: 'steven.xu@gmail.com',
-    phone: '123456789',
-    id: 123
+    phone: '123456789'
   };
   var token = authUtils.generateToken(profile);
   res.json(token);
