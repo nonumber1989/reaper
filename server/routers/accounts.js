@@ -81,7 +81,9 @@ router.post('/authenticate', function(req, res, next) {
     phone: '123456789'
   };
   var token = authUtils.generateToken(profile);
-  res.json(token);
+  res.json({
+    userToken:token
+  });
 });
 
 module.exports = router;
