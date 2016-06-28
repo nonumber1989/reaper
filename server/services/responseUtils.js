@@ -27,10 +27,10 @@ var notFoundError = function(response) {
 };
 
 var internalError = function(response, error) {
-	responseCommon(response, error.statusCode, error.message);
+	responseCommon(response, error.code, error.message);
 };
 var unauthorizedError = function(response,error) {
-	responseCommon(response, error.statusCode, error.message);
+	responseCommon(response, error.code, error.message);
 };
 var deletedSuccessfully = function(response, identification) {
 	if (identification) {

@@ -64,6 +64,11 @@ router.post('/', function(req, res, next) {
 
 });
 
+router.post('/:id/verify', function(req, res, next) {
+  var account = requestUtils.getAccount(req);
+  res.json( req.body);
+});
+
 router.put('/:id', function(req, res, next) {
   var theSurvey = new Survey(req.body);
   Survey.findByIdAndUpdate(new ObjectId(req.params.id), {

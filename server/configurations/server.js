@@ -54,10 +54,7 @@ reaper.use(function(err, req, res, next) {
   }
 });
 
-// error handlers
-
 // development error handler
-// will print stacktrace
 if (reaper.get('env') === 'development') {
   reaper.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -67,15 +64,5 @@ if (reaper.get('env') === 'development') {
     });
   });
 }
-
-// production error handler
-// no stacktraces leaked to user
-reaper.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.json({
-    message: err.message,
-    error: {}
-  });
-});
 
 module.exports = reaper;
