@@ -6,6 +6,7 @@ var Question = mongoose.model("Question");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
+var surveyVerify = require('../services/surveyVerify');
 var Promise = require("bluebird");
 mongoose.Promise = Promise;
 
@@ -65,8 +66,14 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/:id/verify', function(req, res, next) {
+  var pagenation = requestUtils.getPagenation(req);
   var account = requestUtils.getAccount(req);
-  res.json( req.body);
+  var queryPromise = Question.find({survey:req.params.id}, {}, pagenation).exec();
+  queryPromise.then(function(questions) {
+      res.json(surveyVerify.verifySurvery(req.body,questions));
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
 });
 
 router.put('/:id', function(req, res, next) {

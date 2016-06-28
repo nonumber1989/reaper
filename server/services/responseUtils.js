@@ -27,9 +27,13 @@ var notFoundError = function(response) {
 };
 
 var internalError = function(response, error) {
-	responseCommon(response, error.code, error.message);
+	if (error.code) {
+		responseCommon(response, error.code, error.message);
+	} else {
+		responseCommon(response, 500, error.message);
+	}
 };
-var unauthorizedError = function(response,error) {
+var unauthorizedError = function(response, error) {
 	responseCommon(response, error.code, error.message);
 };
 var deletedSuccessfully = function(response, identification) {

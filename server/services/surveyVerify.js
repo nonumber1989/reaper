@@ -10,5 +10,8 @@ var verifySurvery = function(questions, originQuestions) {
 			question.correct = false;
 		}
 	});
+	return questions;
 };
 
+
+exports.verifySurvery = verifySurvery;

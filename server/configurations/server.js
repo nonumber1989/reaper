@@ -57,6 +57,7 @@ reaper.use(function(err, req, res, next) {
 // development error handler
 if (reaper.get('env') === 'development') {
   reaper.use(function(err, req, res, next) {
+    console.error(err);
     res.status(err.status || 500);
     res.json({
       message: err.message,
