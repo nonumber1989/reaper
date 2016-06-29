@@ -75,15 +75,19 @@ router.delete('/:id', function(req, res, next) {
 
 
 router.post('/authenticate', function(req, res, next) {
-  var profile = {
-    name: 'nonumber1989',
-    email: 'steven.xu@gmail.com',
-    phone: '123456789'
-  };
-  var token = authUtils.generateToken(profile);
-  res.json({
-    userToken:token
-  });
+  var account = req.body;
+  if (account.id !== undefined) {
+    var token = authUtils.generateToken(account);
+    res.json({
+      userToken: token
+    });
+  } else {
+    var error = new Error();
+    error.message = "please provided your ID";
+    error.code = 400;
+    responseUtils.badRequestError(res, error);
+  }
+
 });
 
 module.exports = router;

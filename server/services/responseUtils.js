@@ -36,6 +36,9 @@ var internalError = function(response, error) {
 var unauthorizedError = function(response, error) {
 	responseCommon(response, error.code, error.message);
 };
+var badRequestError = function(response, error) {
+	responseCommon(response, error.code, error.message);
+};
 var deletedSuccessfully = function(response, identification) {
 	if (identification) {
 		responseCommon(response, 200, "record " + identification + " has been deleted successfully");
@@ -49,4 +52,5 @@ exports.resourcesNotFoundError = resourcesNotFoundError;
 exports.internalError = internalError;
 exports.notFoundError = notFoundError;
 exports.unauthorizedError = unauthorizedError;
+exports.badRequestError = badRequestError;
 exports.deletedSuccessfully = deletedSuccessfully;
