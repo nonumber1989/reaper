@@ -7,7 +7,7 @@ var ObjectId = mongoose.Types.ObjectId;
 var authUtils = require('../services/authUtils');
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
-
+var surveyVerify = require('../services/surveyVerify');
 var Promise = require("bluebird");
 mongoose.Promise = Promise;
 
@@ -88,6 +88,11 @@ router.post('/authenticate', function(req, res, next) {
     responseUtils.badRequestError(res, error);
   }
 
+});
+
+
+router.post('/register', function(req, res, next) {
+  res.json(req.body);
 });
 
 module.exports = router;
