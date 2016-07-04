@@ -33,7 +33,7 @@ reaper.use(expressJwt({
   secret: configuration.jwt.tokenSecret,
   credentialsRequired: configuration.jwt.credentialsRequired
 }).unless({
-  path: ['/accounts/authenticate']
+  path: ['/accounts/authenticate','/accounts/register']
 }));
 
 //static server

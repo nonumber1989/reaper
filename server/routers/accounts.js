@@ -3,6 +3,7 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Account = mongoose.model("Account");
+var SurveyResult = mongoose.model("SurveyResult");
 var ObjectId = mongoose.Types.ObjectId;
 var authUtils = require('../services/authUtils');
 var requestUtils = require('../services/requestUtils');
@@ -92,7 +93,12 @@ router.post('/authenticate', function(req, res, next) {
 
 
 router.post('/register', function(req, res, next) {
-  res.json(req.body);
+  var surveyResultModel = new SurveyResult(req.body);
+  surveyResultModel.save().then(function(surveyResult) {
+    res.json(surveyResult);
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
 });
 
 module.exports = router;
