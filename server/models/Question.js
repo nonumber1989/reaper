@@ -7,6 +7,7 @@ var QuestionSchema = new Schema({
 		ref: 'Survey'
 	},
 	title: String,
+	primary: Boolean,
 	type: String,
 	choisce: String,
 	items: [{
@@ -29,4 +30,3 @@ var QuestionSchema = new Schema({
 	}
 });
 mongoose.model('Question', QuestionSchema);
-
