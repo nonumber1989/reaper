@@ -29,12 +29,12 @@ reaper.use(bodyParser.urlencoded({
 reaper.use(cookieParser());
 //for the jwt
 //Authorization Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlN0ZXZlbi5YdSIsImVtYWlsIjoic3RldmVuLnh1QGdtYWlsLmNvbSIsInBob25lIjoiMTIzNDU2Nzg5IiwiaWQiOjEyMywiaWF0IjoxNDY2NDMzNTk4LCJleHAiOjE0NjcwMzgzOTh9.NCvZRmGtCWBgPlCj2jGRaFwP6n_8y59eoy000d6VMmI
-reaper.use(expressJwt({
-  secret: configuration.jwt.tokenSecret,
-  credentialsRequired: configuration.jwt.credentialsRequired
-}).unless({
-  path: ['/accounts/authenticate','/accounts/register']
-}));
+// reaper.use(expressJwt({
+//   secret: configuration.jwt.tokenSecret,
+//   credentialsRequired: configuration.jwt.credentialsRequired
+// }).unless({
+//   path: ['/accounts/authenticate','/accounts/register']
+// }));
 
 //static server
 reaper.use('/reaper', express.static(path.join(process.cwd(), 'reaper/app')));
