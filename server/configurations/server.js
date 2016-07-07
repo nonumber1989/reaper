@@ -37,7 +37,7 @@ reaper.use(cookieParser());
 // }));
 
 //static server
-reaper.use('/reaper', express.static(path.join(process.cwd(), 'reaper/app')));
+reaper.use('/heimdallr', express.static(path.join(process.cwd(), 'heimdallr/app')));
 router.routers(reaper);
 // reaper.use('/reaper', routes.reaper);
 
