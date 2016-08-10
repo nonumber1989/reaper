@@ -34,7 +34,7 @@ var internalError = function(response, error) {
 	}
 };
 var unauthorizedError = function(response, error) {
-	responseCommon(response, error.code, error.message);
+	responseCommon(response, error.status, error.message);
 };
 var badRequestError = function(response, error) {
 	responseCommon(response, error.code, error.message);
