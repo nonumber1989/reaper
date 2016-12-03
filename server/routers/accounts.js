@@ -3,14 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Account = mongoose.model("Account");
-var SurveyResult = mongoose.model("SurveyResult");
 var ObjectId = mongoose.Types.ObjectId;
 var authUtils = require('../services/authUtils');
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 var surveyVerify = require('../services/surveyVerify');
-var Promise = require("bluebird");
-mongoose.Promise = Promise;
 
 router.get('/', function(req, res, next) {
   var pagenation = requestUtils.getPagenation(req);
@@ -45,7 +42,8 @@ router.post('/', function(req, res, next) {
   accountModel.save().then(function(account) {
     res.json(account);
   }).catch(function(err) {
-    responseUtils.internalError(res, err);
+    res.status(400);
+    res.json(err);
   });
 });
 
@@ -91,14 +89,5 @@ router.post('/authenticate', function(req, res, next) {
 
 });
 
-
-router.post('/register', function(req, res, next) {
-  var surveyResultModel = new SurveyResult(req.body);
-  surveyResultModel.save().then(function(surveyResult) {
-    res.json(surveyResult);
-  }).catch(function(err) {
-    responseUtils.internalError(res, err);
-  });
-});
 
 module.exports = router;

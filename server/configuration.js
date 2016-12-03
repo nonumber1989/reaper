@@ -6,7 +6,7 @@ module.exports = {
 	},
 	"jwt": {
 		"jwtAlgorithm": "HS256",
-		"tokenSecret": "shhhhhhared-secret",
+		"tokenSecret": "reaper",
 		"expiresIn":"7d",
 		"credentialsRequired":true
 	}

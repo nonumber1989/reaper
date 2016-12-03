@@ -9,9 +9,7 @@ fs.readdirSync(routers_path).forEach(function(file) {
 });
 
 var reaperRouters = function(reaper) {
-  reaper.use('/questions', router.questions);
   reaper.use('/accounts', router.accounts);
-  reaper.use('/surveys', router.surveys);
   reaper.use('/gridfs', router.gridfs);
   console.log('reaper router');
 };
