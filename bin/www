@@ -1,29 +1,30 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
 var fs = require('fs');
+var reaper = require('../app');
+var debug = require('debug')('test:server');
 var http = require('http');
 var https = require('https');
-var debug = require('debug')('test:server');
-//for mongodb connection
-require('./server/configurations/mongoose');
-var configuration = require('./server/configuration');
-var app = require('./server/configurations/server');
-//for https 
-var privateKey  = fs.readFileSync('./server/TLS/ryans-key.pem', 'utf8');
-var certificate = fs.readFileSync('./server/TLS/ryans-cert.pem', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
-
 /**
  * Get port from environment and store in Express.
  */
+//for https 
+var privateKey  = fs.readFileSync('./configurations/TLS/ryans-key.pem', 'utf8');
+var certificate = fs.readFileSync('./configurations/TLS/ryans-cert.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
-var port = normalizePort(process.env.PORT || configuration.port);
-app.set('port', port);
+var port = normalizePort(process.env.PORT || 3000);
+reaper.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP httpServer.
  */
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+var httpServer = http.createServer(reaper);
+var httpsServer = https.createServer(credentials, reaper);
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -32,7 +33,7 @@ httpServer.listen(port);
 httpServer.on('error', onError);
 httpServer.on('listening', onListening);
 
-var httpsPort = normalizePort(configuration.httpsPort);
+var httpsPort = normalizePort(4000);
 httpsServer.listen(httpsPort);
 httpsServer.on('error', onError);
 httpsServer.on('listening', onListening);
@@ -58,7 +59,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTP httpServer "error" event.
  */
 
 function onError(error) {
@@ -86,7 +87,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for HTTP httpServer "listening" event.
  */
 
 function onListening() {
@@ -96,5 +97,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-

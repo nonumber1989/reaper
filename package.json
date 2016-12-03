@@ -20,7 +20,7 @@
   ],
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.15.2",

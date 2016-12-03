@@ -4,10 +4,8 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Account = mongoose.model("Account");
 var ObjectId = mongoose.Types.ObjectId;
-var authUtils = require('../services/authUtils');
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
-var surveyVerify = require('../services/surveyVerify');
 
 router.get('/', function(req, res, next) {
   var pagenation = requestUtils.getPagenation(req);
@@ -71,23 +69,5 @@ router.delete('/:id', function(req, res, next) {
     responseUtils.internalError(res, err);
   });
 });
-
-
-router.post('/authenticate', function(req, res, next) {
-  var account = req.body;
-  if (account.id !== undefined) {
-    var token = authUtils.generateToken(account);
-    res.json({
-      userToken: token
-    });
-  } else {
-    var error = new Error();
-    error.message = "please provided your ID";
-    error.code = 400;
-    responseUtils.badRequestError(res, error);
-  }
-
-});
-
 
 module.exports = router;
