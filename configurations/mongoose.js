@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
-var configuration = require('./../configuration');
-var models_path = process.cwd() + '/server/models';
+var configuration = require('./configuration');
+var models_path = process.cwd() + '/models';
 
 //set mongodb url manually
 process.env.MONGO_URL = configuration.mongo.mongoUrl;
