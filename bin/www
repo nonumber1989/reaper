@@ -25,6 +25,7 @@ reaper.set('port', port);
 
 var httpServer = http.createServer(reaper);
 var httpsServer = https.createServer(credentials, reaper);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -59,7 +60,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP httpServer "error" event.
+ * Event listener for HTTP server "error" event.
  */
 
 function onError(error) {
@@ -87,7 +88,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP httpServer "listening" event.
+ * Event listener for HTTP server "listening" event.
  */
 
 function onListening() {
