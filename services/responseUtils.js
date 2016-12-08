@@ -27,18 +27,17 @@ var notFoundError = function(response) {
 };
 
 var internalError = function(response, error) {
-	if (error.code) {
-		responseCommon(response, error.code, error.message);
-	} else {
 		responseCommon(response, 500, error.message);
-	}
 };
+
 var unauthorizedError = function(response, error) {
-	responseCommon(response, error.status, error.message);
+	responseCommon(response, 401, error.message);
 };
+
 var badRequestError = function(response, error) {
-	responseCommon(response, error.code, error.message);
+	responseCommon(response, 404, error.message);
 };
+
 var deletedSuccessfully = function(response, identification) {
 	if (identification) {
 		responseCommon(response, 200, "record " + identification + " has been deleted successfully");

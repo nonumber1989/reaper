@@ -2,17 +2,18 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
-var Account = mongoose.model("Account");
+mongoose.Promise = require('bluebird');
+var User = mongoose.model("User");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
 router.get('/', function(req, res, next) {
   var pagenation = requestUtils.getPagenation(req);
-  var queryPromise = Account.find({}, {}, pagenation).exec();
-  queryPromise.then(function(accounts) {
-    if (accounts) {
-      res.json(accounts);
+  var queryPromise = User.find({}, {}, pagenation).exec();
+  queryPromise.then(function(users) {
+    if (users) {
+      res.json(users);
     } else {
       responseUtils.resourcesNotFoundError(res);
     }
@@ -21,12 +22,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//get the account by id
+//get the user by id
 router.get('/:id', function(req, res, next) {
-  var queryPromise = Account.findById(new ObjectId(req.params.id)).exec();
-  queryPromise.then(function(account) {
-    if (account) {
-      res.json(account);
+  var queryPromise = User.findById(new ObjectId(req.params.id)).exec();
+  queryPromise.then(function(user) {
+    if (user) {
+      res.json(user);
     } else {
       responseUtils.resourceNotFoundError(res, req.params.id);
     }
@@ -34,24 +35,40 @@ router.get('/:id', function(req, res, next) {
     responseUtils.internalError(res, err);
   });
 });
-//create an account
+//create an user
 router.post('/', function(req, res, next) {
-  var accountModel = new Account(req.body);
-  accountModel.save().then(function(account) {
-    res.json(account);
+  var theUser = new User(req.body);
+  theUser.save().then(function(user) {
+    res.json(user);
   }).catch(function(err) {
     res.status(400);
     res.json(err);
   });
 });
 
-// update the account by id
+// update the user by id
 router.put('/:id', function(req, res, next) {
-  var accountModel = new Account(req.body);
-  var updatePromise = Account.findByIdAndUpdate(new ObjectId(req.params.id), accountModel).exec();
-  updatePromise.then(function(account) {
-    if (account) {
-      res.json(account);
+  var theUser = req.body;
+  var updatePromise = User.findByIdAndUpdate(new ObjectId(req.params.id), theUser).exec();
+  updatePromise.then(function(user) {
+    if (user) {
+      res.status(204).end();
+    } else {
+      responseUtils.resourceNotFoundError(res, req.params.id);
+    }
+  }).catch(function(err) {
+    responseUtils.internalError(res, err);
+  });
+
+});
+
+// update the user by id
+router.patch('/:id', function(req, res, next) {
+  var theUser = new User(req.body);
+  var updatePromise = User.findByIdAndUpdate(new ObjectId(req.params.id), theUser).exec();
+  updatePromise.then(function(user) {
+    if (user) {
+      res.json(user);
     } else {
       responseUtils.resourceNotFoundError(res, req.params.id);
     }
@@ -63,7 +80,7 @@ router.put('/:id', function(req, res, next) {
 
 //delete by id
 router.delete('/:id', function(req, res, next) {
-  Account.findByIdAndRemove(new Object(req.params.id)).then(function(account) {
+  User.findByIdAndRemove(new Object(req.params.id)).then(function(user) {
     responseUtils.deletedSuccessfully(res, req.params.id)
   }).catch(function(err) {
     responseUtils.internalError(res, err);

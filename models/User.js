@@ -1,20 +1,23 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var AccountSchema = new Schema({
+var UserSchema = new Schema({
     userName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
+    nickName: String,
     password: {
         type: String,
         required: true
     },
-    phone: String,
+    phoneNumber: String,
     email: String,
+    avatar: String,
     authority: {
         type: String,
         enum: ['Admin', 'Normal']
     }
 });
-mongoose.model('Account', AccountSchema);
+mongoose.model('User', UserSchema);

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 //for mongodb connection
 require('./configurations/mongoose');
 
-var accounts = require('./routes/accounts');
+var users = require('./routes/users');
 
 var reaper = express();
 
@@ -27,7 +27,7 @@ reaper.use(bodyParser.urlencoded({ extended: false }));
 reaper.use(cookieParser());
 // reaper.use(express.static(path.join(__dirname, 'public')));
 
-reaper.use('/accounts', accounts);
+reaper.use('/users', users);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {
