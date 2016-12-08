@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 require('./configurations/mongoose');
 
 var users = require('./routes/users');
+var oauth = require('./routes/oauth');
 
 var reaper = express();
 
@@ -28,6 +29,7 @@ reaper.use(cookieParser());
 // reaper.use(express.static(path.join(__dirname, 'public')));
 
 reaper.use('/users', users);
+reaper.use('/oauth', oauth);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {
