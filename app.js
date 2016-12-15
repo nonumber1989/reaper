@@ -9,6 +9,7 @@ require('./configurations/mongoose');
 
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
+var follows = require('./routes/follows');
 
 var reaper = express();
 
@@ -30,6 +31,7 @@ reaper.use(cookieParser());
 
 reaper.use('/users', users);
 reaper.use('/oauth', oauth);
+reaper.use('/follows', follows);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {
