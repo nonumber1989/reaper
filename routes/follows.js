@@ -9,6 +9,7 @@ var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
+
 router.post('/categories', function(req, res, next) {
     var theCategory = new Category(req.body);
     theCategory.save().then(function(category) {
@@ -21,12 +22,21 @@ router.post('/categories', function(req, res, next) {
 
 router.post('/channels', function(req, res, next) {
     var theChannel = new Channel(req.body);
-    theChannel.save().then(function(channle) {
-        res.json(channle);
+    Category.count({ _id: theChannel.category }).then(function(count) {
+        if (count > 0) {
+            return theChannel.save();
+        } else {
+            throw new Error('Category not exist');
+        }
+    }).then(function(channel) {
+        res.json(channel);
     }).catch(function(err) {
         res.status(400);
-        res.json(err);
+        res.json({
+            message:err.message
+        });
     });
+
 });
 
 router.post('/topics', function(req, res, next) {

@@ -6,7 +6,7 @@ var ChannelSchema = new Schema({
         type: String,
         required: true
     },
-    channelDescription: String,
+    description: String,
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
@@ -16,4 +16,7 @@ var ChannelSchema = new Schema({
     createdAt: Date,
     updatedAt: Date
 });
+
+ChannelSchema.index({ category: 1, channelName: 1 }, { unique: true });
+
 mongoose.model('Channel', ChannelSchema);

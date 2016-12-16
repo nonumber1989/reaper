@@ -17,4 +17,6 @@ var TopicSchema = new Schema({
     updatedAt: Date
 });
 
+TopicSchema.index({ channel: 1, topicName: 1 }, { unique: true });
+
 mongoose.model('Topic', TopicSchema);

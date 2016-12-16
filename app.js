@@ -14,11 +14,11 @@ var follows = require('./routes/follows');
 var reaper = express();
 
 reaper.use(function(req, res, next) {
-  // CORS headers
-  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
-  next();
+    // CORS headers
+    res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Content-type,Accept,Accept-Version,X-Access-Token,Origin,X-Requested-With,Authorization,Api-Version');
+    next();
 });
 
 // uncomment after placing your favicon in /public
@@ -35,21 +35,25 @@ reaper.use('/follows', follows);
 
 // catch 404 and forward to error handler
 reaper.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Resource Not Found !');
+    err.status = 404;
+    // next(err);
+    res.json({
+        message: err.message
+    });
 });
 
 // error handler
 reaper.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.send('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.json({
+        message: err.message
+    });
 });
 
 module.exports = reaper;
-
