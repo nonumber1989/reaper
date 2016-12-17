@@ -5,14 +5,16 @@ mongoose.Promise = require('bluebird');
 var Category = mongoose.model("Category");
 var Channel = mongoose.model("Channel");
 var Topic = mongoose.model("Topic");
+var Letter = mongoose.model("Letter");
+var Message = mongoose.model("Message");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
 /*
-* create category
-* authority needed
-*/
+ * create category
+ * authority needed
+ */
 router.post('/categories', function(req, res, next) {
     var theCategory = new Category(req.body);
     theCategory.save().then(function(category) {
@@ -23,9 +25,9 @@ router.post('/categories', function(req, res, next) {
     });
 });
 /*
-* query category
-* authority needed (only view the categories in the namespace)
-*/
+ * query category
+ * authority needed (only view the categories in the namespace)
+ */
 router.get('/categories', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Category.find({}, {}, pagenation).exec();
@@ -36,9 +38,9 @@ router.get('/categories', function(req, res, next) {
     });
 });
 /*
-* create channel
-* authority needed (only creat for category)
-*/
+ * create channel
+ * authority needed (only creat for category)
+ */
 router.post('/channels', function(req, res, next) {
     var theChannel = new Channel(req.body);
     Category.count({ _id: theChannel.category }).then(function(count) {
@@ -85,12 +87,56 @@ router.post('/topics', function(req, res, next) {
     });
 });
 
-//query channel
+//query topics
 router.get('/topics', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Topic.find({}, {}, pagenation).exec();
     queryPromise.then(function(topics) {
         res.json(topics);
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
+});
+
+//create letter
+router.post('/letters', function(req, res, next) {
+    var theLetter = new Letter(req.body);
+    theLetter.save().then(function(letter) {
+        res.json(letter);
+    }).catch(function(err) {
+        res.status(400);
+        res.json(err);
+    });
+});
+
+//query letters
+router.get('/letters', function(req, res, next) {
+    var pagenation = requestUtils.getPagenation(req);
+    var queryPromise = Letter.find({}, {}, pagenation).exec();
+    queryPromise.then(function(letters) {
+        res.json(letters);
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
+});
+
+//create message
+router.post('/messages', function(req, res, next) {
+    var theMessage = new Message(req.body);
+    theMessage.save().then(function(message) {
+        res.json(message);
+    }).catch(function(err) {
+        res.status(400);
+        res.json(err);
+    });
+});
+
+//query messages
+router.get('/messages', function(req, res, next) {
+    var pagenation = requestUtils.getPagenation(req);
+    var queryPromise = Message.find({}, {}, pagenation).exec();
+    queryPromise.then(function(messages) {
+        res.json(messages);
     }).catch(function(err) {
         responseUtils.internalError(res, err);
     });

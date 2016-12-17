@@ -2,13 +2,18 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
+    namespce: String,
+    type: {
+        type: String,
+        enum: ['Category', 'Channel', 'Topic', 'Letter']
+    },
     subject: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
-    message: String,
     format: String,
+    message: String,
+    sendTo: [String],
     createdAt: Date,
     updatedAt: Date,
     createdBy: String

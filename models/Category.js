@@ -6,7 +6,7 @@ var CategorySchema = new Schema({
         type: String,
         required: true
     },
-    categoryName: {
+    name: {
         type: String,
         required: true
     },
@@ -16,6 +16,6 @@ var CategorySchema = new Schema({
     updatedAt: Date
 });
 
-CategorySchema.index({ namespace: 1, categoryName: 1 }, { unique: true });
+CategorySchema.index({ namespace: 1, name: 1 }, { unique: true });
 
 mongoose.model('Category', CategorySchema);

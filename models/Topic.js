@@ -2,11 +2,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var TopicSchema = new Schema({
-    topicName: {
+    name: {
         type: String,
         required: true
     },
-    topicDescription: String,
+    nescription: String,
     channel: {
         type: Schema.Types.ObjectId,
         ref: 'Channel',
@@ -17,6 +17,6 @@ var TopicSchema = new Schema({
     updatedAt: Date
 });
 
-TopicSchema.index({ channel: 1, topicName: 1 }, { unique: true });
+TopicSchema.index({ channel: 1, name: 1 }, { unique: true });
 
 mongoose.model('Topic', TopicSchema);

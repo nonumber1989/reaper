@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ChannelSchema = new Schema({
-    channelName: {
+    name: {
         type: String,
         required: true
     },
@@ -17,6 +17,6 @@ var ChannelSchema = new Schema({
     updatedAt: Date
 });
 
-ChannelSchema.index({ category: 1, channelName: 1 }, { unique: true });
+ChannelSchema.index({ category: 1, name: 1 }, { unique: true });
 
 mongoose.model('Channel', ChannelSchema);
