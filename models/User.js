@@ -18,6 +18,10 @@ var UserSchema = new Schema({
     authority: {
         type: String,
         enum: ['Admin', 'Normal']
-    }
+    },
+    refreshTokens: [{
+        type: String,
+        refreshToken: String
+    }]
 });
 mongoose.model('User', UserSchema);
