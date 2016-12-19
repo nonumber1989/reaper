@@ -38,13 +38,6 @@ var badRequestError = function(response, error) {
 	responseCommon(response, 404, error.message);
 };
 
-var deletedSuccessfully = function(response, identification) {
-	if (identification) {
-		responseCommon(response, 200, "record " + identification + " has been deleted successfully");
-	} else {
-		responseCommon(response, 200, "record has been deleted successfully");
-	}
-};
 
 exports.resourceNotFoundError = resourceNotFoundError;
 exports.resourcesNotFoundError = resourcesNotFoundError;
@@ -52,4 +45,3 @@ exports.internalError = internalError;
 exports.notFoundError = notFoundError;
 exports.unauthorizedError = unauthorizedError;
 exports.badRequestError = badRequestError;
-exports.deletedSuccessfully = deletedSuccessfully;
