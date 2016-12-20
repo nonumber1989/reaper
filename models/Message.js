@@ -13,10 +13,7 @@ var MessageSchema = new Schema({
     },
     format: String,
     message: String,
-    sendTo: [String],
-    createdAt: Date,
-    updatedAt: Date,
-    createdBy: String
-});
+    sendTo: [String]
+}, { timestamps: true });
 
 mongoose.model('Message', MessageSchema);

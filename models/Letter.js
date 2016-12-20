@@ -8,6 +8,6 @@ var LetterSchema = new Schema({
     updatedAt: Date,
     sendFrom: String,
     sendTo: [String]
-});
+}, { timestamps: true });
 
 mongoose.model('Letter', LetterSchema);

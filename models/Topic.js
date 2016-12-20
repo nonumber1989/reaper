@@ -12,10 +12,8 @@ var TopicSchema = new Schema({
         ref: 'Channel',
         required: true
     },
-    avatar: String,
-    createdAt: Date,
-    updatedAt: Date
-});
+    avatar: String
+}, { timestamps: true });
 
 TopicSchema.index({ channel: 1, name: 1 }, { unique: true });
 

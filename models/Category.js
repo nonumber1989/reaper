@@ -11,11 +11,9 @@ var CategorySchema = new Schema({
         required: true
     },
     description: String,
-    avatar: String,
-    createdAt: Date,
-    updatedAt: Date
-});
-
+    avatar: String
+}, { timestamps: true });
+CategorySchema.timestamps = true;
 CategorySchema.index({ namespace: 1, name: 1 }, { unique: true });
 
 mongoose.model('Category', CategorySchema);

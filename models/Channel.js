@@ -12,10 +12,8 @@ var ChannelSchema = new Schema({
         ref: 'Category',
         required: true
     },
-    avatar: String,
-    createdAt: Date,
-    updatedAt: Date
-});
+    avatar: String
+}, { timestamps: true });
 
 ChannelSchema.index({ category: 1, name: 1 }, { unique: true });
 

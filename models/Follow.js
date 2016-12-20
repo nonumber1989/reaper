@@ -6,8 +6,6 @@ var FollowSchema = new Schema({
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     channels: [{ type: Schema.Types.ObjectId, ref: 'Channel' }],
     topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
-    notifications: [{ type: Schema.Types.ObjectId, ref: 'Notification' }],
-    createdAt: Date,
-    updatedAt: Date
-});
+    notifications: [{ type: Schema.Types.ObjectId, ref: 'Notification' }]
+}, { timestamps: true });
 mongoose.model('Follow', FollowSchema);
