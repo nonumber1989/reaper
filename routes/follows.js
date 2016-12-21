@@ -11,10 +11,6 @@ var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
-/*
- * create category
- * authority needed
- */
 router.post('/categories', function(req, res, next) {
     var theCategory = new Category(req.body);
     theCategory.save().then(function(category) {
@@ -24,10 +20,29 @@ router.post('/categories', function(req, res, next) {
         res.json(err);
     });
 });
-/*
- * query category
- * authority needed (only view the categories in the namespace)
- */
+
+router.delete('/categories/:id', function(req, res, next) {
+    Category.findByIdAndRemove(new Object(req.params.id)).then(function(category) {
+        res.status(200).end();
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
+});
+
+router.put('/categories/:id', function(req, res, next) {
+    var theCategory = req.body;
+    var updatePromise = Category.findByIdAndUpdate(new ObjectId(req.params.id), theCategory).exec();
+    updatePromise.then(function(category) {
+        if (category) {
+            res.status(204).end();
+        } else {
+            responseUtils.resourceNotFoundError(res, req.params.id);
+        }
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
+});
+
 router.get('/categories', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Category.find({}, {}, pagenation).exec();
@@ -37,10 +52,7 @@ router.get('/categories', function(req, res, next) {
         responseUtils.internalError(res, err);
     });
 });
-/*
- * create channel
- * authority needed (only creat for category)
- */
+
 router.post('/channels', function(req, res, next) {
     var theChannel = new Channel(req.body);
     Category.count({ _id: theChannel.category }).then(function(count) {
@@ -60,7 +72,6 @@ router.post('/channels', function(req, res, next) {
 
 });
 
-//query channel
 router.get('/channels', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Channel.find({}, {}, pagenation).exec();
@@ -70,7 +81,7 @@ router.get('/channels', function(req, res, next) {
         responseUtils.internalError(res, err);
     });
 });
-//create topic
+
 router.post('/topics', function(req, res, next) {
     var theTopic = new Topic(req.body);
     Channel.count({ _id: theTopic.channel }).then(function(count) {
@@ -87,7 +98,6 @@ router.post('/topics', function(req, res, next) {
     });
 });
 
-//query topics
 router.get('/topics', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Topic.find({}, {}, pagenation).exec();
@@ -98,7 +108,6 @@ router.get('/topics', function(req, res, next) {
     });
 });
 
-//create letter
 router.post('/letters', function(req, res, next) {
     var theLetter = new Letter(req.body);
     theLetter.save().then(function(letter) {
@@ -109,7 +118,6 @@ router.post('/letters', function(req, res, next) {
     });
 });
 
-//query letters
 router.get('/letters', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Letter.find({}, {}, pagenation).exec();
@@ -120,7 +128,6 @@ router.get('/letters', function(req, res, next) {
     });
 });
 
-//create message
 router.post('/messages', function(req, res, next) {
     var theMessage = new Message(req.body);
     theMessage.save().then(function(message) {
@@ -131,7 +138,6 @@ router.post('/messages', function(req, res, next) {
     });
 });
 
-//query messages
 router.get('/messages', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Message.find({}, {}, pagenation).exec();

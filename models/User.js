@@ -1,25 +1,34 @@
-'use strict';
+var mongoose = require('mongoose');
+var crypto = require('crypto');
+var Schema = mongoose.Schema;
 
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-
-const Schema = mongoose.Schema;
-
-/**
- * User Schema
- */
-
-const UserSchema = new Schema({
-    name: { type: String, default: '' },
-    email: { type: String, default: '' },
-    username: { type: String, default: '' },
-    provider: { type: String, default: '' },
-    hashed_password: { type: String, default: '' },
-    salt: { type: String, default: '' },
-    authToken: { type: String, default: '' }
+var UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    userName: {
+        type: String,
+        unique: true
+    },
+    provider: String,
+    hashedPassword: String,
+    salt: {
+        type: String,
+        default: ''
+    },
+    authToken: {
+        type: String,
+        default: ''
+    }
 });
 
-const validatePresenceOf = value => value && value.length;
+var validatePresenceOf = value => value && value.length;
 
 /**
  * Virtuals
@@ -30,32 +39,16 @@ UserSchema
     .set(function(password) {
         this._password = password;
         this.salt = this.makeSalt();
-        this.hashed_password = this.encryptPassword(password);
+        this.hashedPassword = this.encryptPassword(password);
     })
     .get(function() {
         return this._password;
     });
 
-/**
- * Validations
- */
-
-// the below 5 validations only apply if you are signing up traditionally
-
-UserSchema.path('name').validate(function(name) {
-    if (this.skipValidation()) return true;
-    return name.length;
-}, 'Name cannot be blank');
-
-UserSchema.path('email').validate(function(email) {
-    if (this.skipValidation()) return true;
-    return email.length;
-}, 'Email cannot be blank');
 
 UserSchema.path('email').validate(function(email, fn) {
     const User = mongoose.model('User');
     if (this.skipValidation()) fn(true);
-
     // Check only when it is a new user or when email field is modified
     if (this.isNew || this.isModified('email')) {
         User.find({ email: email }).exec(function(err, users) {
@@ -65,14 +58,11 @@ UserSchema.path('email').validate(function(email, fn) {
 }, 'Email already exists');
 
 
-
 /**
  * Pre-save hook
  */
-
 UserSchema.pre('save', function(next) {
     if (!this.isNew) return next();
-
     if (!validatePresenceOf(this.password) && !this.skipValidation()) {
         next(new Error('Invalid password'));
     } else {
@@ -80,12 +70,7 @@ UserSchema.pre('save', function(next) {
     }
 });
 
-/**
- * Methods
- */
-
 UserSchema.methods = {
-
     /**
      * Authenticate - check if the passwords are the same
      *
@@ -95,7 +80,7 @@ UserSchema.methods = {
      */
 
     authenticate: function(plainText) {
-        return this.encryptPassword(plainText) === this.hashed_password;
+        return this.encryptPassword(plainText) === this.hashedPassword;
     },
 
     /**
@@ -116,7 +101,6 @@ UserSchema.methods = {
      * @return {String}
      * @api public
      */
-
     encryptPassword: function(password) {
         if (!password) return '';
         try {
@@ -127,36 +111,6 @@ UserSchema.methods = {
         } catch (err) {
             return '';
         }
-    },
-
-    /**
-     * Validation is not required if using OAuth
-     */
-
-    skipValidation: function() {
-        return false;
-    }
-};
-
-/**
- * Statics
- */
-
-UserSchema.statics = {
-
-    /**
-     * Load
-     *
-     * @param {Object} options
-     * @param {Function} cb
-     * @api private
-     */
-
-    load: function(options, cb) {
-        options.select = options.select || 'name username';
-        return this.findOne(options.criteria)
-            .select(options.select)
-            .exec(cb);
     }
 };
 
