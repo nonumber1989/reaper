@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var mongooseMessage = require('../middlewares/mongooseMessagePlugin');
 var Schema = mongoose.Schema;
 
 var ChannelSchema = new Schema({
@@ -15,6 +16,8 @@ var ChannelSchema = new Schema({
     avatar: String
 }, { timestamps: true });
 
+
 ChannelSchema.index({ category: 1, name: 1 }, { unique: true });
+ChannelSchema.plugin(mongooseMessage);
 
 mongoose.model('Channel', ChannelSchema);

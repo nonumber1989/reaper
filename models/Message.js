@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var mongooseMessage = require('../middlewares/mongooseMessagePlugin');
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
@@ -15,5 +16,7 @@ var MessageSchema = new Schema({
     message: String,
     sendTo: [String]
 }, { timestamps: true });
+
+MessageSchema.plugin(mongooseMessage);
 
 mongoose.model('Message', MessageSchema);

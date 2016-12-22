@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var mongooseMessage = require('../middlewares/mongooseMessagePlugin');
 var Schema = mongoose.Schema;
 
 var LetterSchema = new Schema({
@@ -9,5 +10,7 @@ var LetterSchema = new Schema({
     sendFrom: String,
     sendTo: [String]
 }, { timestamps: true });
+
+LetterSchema.plugin(mongooseMessage);
 
 mongoose.model('Letter', LetterSchema);

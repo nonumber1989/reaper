@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var mongooseMessagePlugin = require('../middlewares/mongooseMessagePlugin');
+var mongooseMessage = require('../middlewares/mongooseMessagePlugin');
 var Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
@@ -14,9 +14,13 @@ var CategorySchema = new Schema({
     description: String,
     avatar: String
 }, { timestamps: true });
-CategorySchema.timestamps = true;
+
+CategorySchema.virtual('eventMessage').get(function () {
+  return this.namespace + ':' + this.name;
+});
+
 CategorySchema.index({ namespace: 1, name: 1 }, { unique: true });
-CategorySchema.plugin(mongooseMessagePlugin);
+CategorySchema.plugin(mongooseMessage);
 // CategorySchema.post('save', function(category) {
 //     console.log('%s has been saved', category._id);
 // });

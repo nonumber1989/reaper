@@ -33,6 +33,8 @@
     "jsonwebtoken": "^7.2.1",
     "mongoose": "^4.7.1",
     "morgan": "^1.7.0",
+    "node-redis": "^0.1.7",
+    "redis": "^2.6.3",
     "serve-favicon": "^2.3.2"
   }
 }
