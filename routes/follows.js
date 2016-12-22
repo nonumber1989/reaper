@@ -22,7 +22,14 @@ router.post('/categories', function(req, res, next) {
 });
 
 router.delete('/categories/:id', function(req, res, next) {
-    Category.findByIdAndRemove(new Object(req.params.id)).then(function(category) {
+    // Category.findById(new Object(req.params.id)).then(function(category) {
+    //     category.remove();
+    //     res.status(200).end();
+    // }).catch(function(err) {
+    //     responseUtils.internalError(res, err);
+    // });
+
+    Category.findOneAndRemove({ _id: new Object(req.params.id) }).then(function(category) {
         res.status(200).end();
     }).catch(function(err) {
         responseUtils.internalError(res, err);
