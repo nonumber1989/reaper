@@ -3,6 +3,8 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+var bcrypt = require('bcrypt');
+var saltRounds = 12;
 var User = mongoose.model("User");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
@@ -28,26 +30,49 @@ var generateToken = function(payload, secretOrPrivateKey) {
     return token;
 };
 
-//generate refresh token 
-router.post('/refreshToken', function(req, res, next) {
-    var theUser = new User(req.body);
+router.post('/authenticate', function(req, res, next) {
+    var theUser = req.body;
+    var queryPromise = User.findOne({ userName: theUser.userName }).exec();
+    queryPromise.then(function(user) {
+        if (user) {
+            return bcrypt.compare(theUser.password, user.password);
+        } else {
+            responseUtils.resourceNotFoundError(res, req.params.id);
+        }
+    }).then(function(validated) {
+        res.json(generateToken(theUser));
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
+    });
 
 });
 
-//revoke refresh token
 router.delete('/refreshToken', function(req, res, next) {
 
 });
 
-//update refresh token
 router.put('/refreshToken', function(req, res, next) {
 
 });
 
-//generate refresh token 
 router.post('/accessToken', function(req, res, next) {
-	var user = req.body;
-	res.json(generateToken(user));
+    var user = req.body;
+    res.json(generateToken(user));
+});
+
+router.post('/register', function(req, res, next) {
+    var theUser = new User(req.body);
+    bcrypt.hash(theUser.password, saltRounds).then(function(hashedPassword) {
+        theUser.password = hashedPassword;
+        return theUser.save();
+    }).then(function(user) {
+        user = user.toObject();
+        delete user.password;
+        res.json(user);
+    }).catch(function(err) {
+        res.status(400);
+        res.json(err);
+    });
 });
 
 module.exports = router;
