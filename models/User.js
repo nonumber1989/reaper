@@ -30,10 +30,6 @@ var UserSchema = new Schema({
 
 var validatePresenceOf = value => value && value.length;
 
-/**
- * Virtuals
- */
-
 UserSchema
     .virtual('password')
     .set(function(password) {
@@ -48,7 +44,6 @@ UserSchema
 
 UserSchema.path('email').validate(function(email, fn) {
     const User = mongoose.model('User');
-    if (this.skipValidation()) fn(true);
     // Check only when it is a new user or when email field is modified
     if (this.isNew || this.isModified('email')) {
         User.find({ email: email }).exec(function(err, users) {
@@ -58,9 +53,6 @@ UserSchema.path('email').validate(function(email, fn) {
 }, 'Email already exists');
 
 
-/**
- * Pre-save hook
- */
 UserSchema.pre('save', function(next) {
     if (!this.isNew) return next();
     if (!validatePresenceOf(this.password) && !this.skipValidation()) {
@@ -71,36 +63,14 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.methods = {
-    /**
-     * Authenticate - check if the passwords are the same
-     *
-     * @param {String} plainText
-     * @return {Boolean}
-     * @api public
-     */
-
     authenticate: function(plainText) {
         return this.encryptPassword(plainText) === this.hashedPassword;
     },
-
-    /**
-     * Make salt
-     *
-     * @return {String}
-     * @api public
-     */
 
     makeSalt: function() {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     },
 
-    /**
-     * Encrypt password
-     *
-     * @param {String} password
-     * @return {String}
-     * @api public
-     */
     encryptPassword: function(password) {
         if (!password) return '';
         try {
