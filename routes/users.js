@@ -3,6 +3,8 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+var bcrypt = require('bcrypt');
+var saltRounds = 12;
 var User = mongoose.model("User");
 var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
@@ -18,9 +20,8 @@ router.get('/', function(req, res, next) {
     });
 });
 
-//get the user by id
 router.get('/:id', function(req, res, next) {
-    var queryPromise = User.findOne({userName:req.params.id}).exec();
+    var queryPromise = User.findOne({ userName: req.params.id }).exec();
     queryPromise.then(function(user) {
         if (user) {
             res.json(user);
@@ -31,10 +32,15 @@ router.get('/:id', function(req, res, next) {
         responseUtils.internalError(res, err);
     });
 });
-//create an user
+
 router.post('/', function(req, res, next) {
     var theUser = new User(req.body);
-    theUser.save().then(function(user) {
+    bcrypt.hash(theUser.password, saltRounds).then(function(hashedPassword) {
+        theUser.password = hashedPassword;
+        return theUser.save();
+    }).then(function(user) {
+        user = user.toObject();
+        delete user.password;
         res.json(user);
     }).catch(function(err) {
         res.status(400);
@@ -42,7 +48,6 @@ router.post('/', function(req, res, next) {
     });
 });
 
-// update the user by id
 router.put('/:id', function(req, res, next) {
     var theUser = req.body;
     var updatePromise = User.findByIdAndUpdate(new ObjectId(req.params.id), theUser).exec();
@@ -58,7 +63,6 @@ router.put('/:id', function(req, res, next) {
 
 });
 
-// update the user by id
 router.patch('/:id', function(req, res, next) {
     var theUser = new User(req.body);
     var updatePromise = User.findByIdAndUpdate(new ObjectId(req.params.id), theUser).exec();
@@ -74,7 +78,6 @@ router.patch('/:id', function(req, res, next) {
 
 });
 
-//delete by id
 router.delete('/:id', function(req, res, next) {
     User.findByIdAndRemove(new Object(req.params.id)).then(function(user) {
         res.status(204).end();
