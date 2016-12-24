@@ -1,24 +1,16 @@
 #  Reaper 
 
-> reaper RESTful webservice platform for [insight mobile application](https://github.com/nonumber1989/insight)
+> Reaper will build a platform for hybrid notification based one timeline concept : real-time notification based on socket.io and offline notification based on RESTful service
 
 
 ## Description
-> reaper is a RESTFul webservice platform for an application insight (used for book borrow and share)   
-> This project use Restify framework + Mongoose + MongoDB + other nodejs modules 
-
-
-## Build &  Development
-
-make sure you have install nodejs environment and MongodDB
-#### make sure the MongodDB started 
-
-
-    git clone https://github.com/nonumber1989/reaper
-    npm install 
-    node index.js
-    
-User can use Rest Client or other rest utils to preview 
+> reaper notifaction platform use multiple technologies
+   
+   +  Mongoose + MongoDB for storage 
+   +  Redis for cache and pub/sub
+   +  JWT for security
+   +  Socket.io for real-time communication
+   +  express for RESTful service
 
 ## License
 

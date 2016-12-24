@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var fs = require('fs');
-var reaper = require('../app');
+var reaper = require('../reaper');
 var configuration = require('../configurations/configuration');
 var debug = require('debug')('test:server');
 var http = require('http');
