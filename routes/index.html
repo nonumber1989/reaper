@@ -1,0 +1,21 @@
+<html>
+<!-- <script src="/socket.io/socket.io.js"></script> -->
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<body>
+    <h1>Socket.io with Redis</h1>
+</body>
+<script>
+var socket = io.connect('http://localhost:5000/chat');
+var room = "theRoom";
+
+socket.on('connect', function(msg) {
+    console.log("connected");
+});
+socket.emit('room', room);
+socket.on('message', function(data) {
+    console.log('Incoming message:', data);
+});
+</script>
+
+</html>

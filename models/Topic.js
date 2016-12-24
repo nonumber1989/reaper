@@ -7,8 +7,8 @@ var TopicSchema = new Schema({
         type: String,
         required: true
     },
-    nescription: String,
-    channel: {
+    description: String,
+    parent: {
         type: Schema.Types.ObjectId,
         ref: 'Channel',
         required: true
@@ -16,7 +16,7 @@ var TopicSchema = new Schema({
     avatar: String
 }, { timestamps: true });
 
-TopicSchema.index({ channel: 1, name: 1 }, { unique: true });
+TopicSchema.index({ parent: 1, name: 1 }, { unique: true });
 TopicSchema.plugin(mongooseMessage);
 
 mongoose.model('Topic', TopicSchema);

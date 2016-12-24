@@ -8,7 +8,7 @@ var ChannelSchema = new Schema({
         required: true
     },
     description: String,
-    category: {
+    parent: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
@@ -17,7 +17,7 @@ var ChannelSchema = new Schema({
 }, { timestamps: true });
 
 
-ChannelSchema.index({ category: 1, name: 1 }, { unique: true });
+ChannelSchema.index({ parent: 1, name: 1 }, { unique: true });
 ChannelSchema.plugin(mongooseMessage);
 
 mongoose.model('Channel', ChannelSchema);

@@ -14,7 +14,8 @@ var MessageSchema = new Schema({
     },
     format: String,
     message: String,
-    sendTo: [String]
+    sendTo: [String],
+    avatar: String
 }, { timestamps: true });
 
 MessageSchema.plugin(mongooseMessage);

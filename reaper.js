@@ -30,19 +30,22 @@ reaper.use(bodyParser.json());
 reaper.use(bodyParser.urlencoded({ extended: false }));
 reaper.use(cookieParser());
 
-reaper.use(bodyParser.json({limit: '20mb'}));
+reaper.use(bodyParser.json({ limit: '20mb' }));
 reaper.use(bodyParser.urlencoded({
-  limit: '20mb',extended: false
+    limit: '20mb',
+    extended: false
 }));
 
-// reaper.use(express.static(path.join(__dirname, 'public')));
-reaper.use(expressJwt({
-    secret: configuration.jwt.tokenSecret,
-    credentialsRequired: configuration.jwt.credentialsRequired,
-    requestProperty: 'authentication'
-}).unless({
-    path: ['/oauth/authenticate', '/oauth/register']
-}));
+
+reaper.use(express.static(path.join(__dirname, 'public')));
+
+// reaper.use(expressJwt({
+//     secret: configuration.jwt.tokenSecret,
+//     credentialsRequired: configuration.jwt.credentialsRequired,
+//     requestProperty: 'authentication'
+// }).unless({
+//     path: ['/oauth/authenticate', '/oauth/register']
+// }));
 
 reaper.use('/users', users);
 reaper.use('/oauth', oauth);

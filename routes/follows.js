@@ -52,7 +52,12 @@ router.put('/categories/:id', function(req, res, next) {
 
 router.get('/categories', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
-    var queryPromise = Category.find({}, {}, pagenation).exec();
+    var queryPromise = Category.find({})
+        .skip(pagenation.offset)
+        .limit(pagenation.limit)
+        .sort('-createdTime')
+        .exec();
+
     queryPromise.then(function(categories) {
         res.json(categories);
     }).catch(function(err) {
@@ -62,8 +67,8 @@ router.get('/categories', function(req, res, next) {
 
 router.post('/channels', function(req, res, next) {
     var theChannel = new Channel(req.body);
-    Category.count({ _id: theChannel.category }).then(function(count) {
-        if (count > 0) {
+    Category.findOne({ _id: theChannel.category }).then(function(category) {
+        if (category > 0) {
             return theChannel.save();
         } else {
             throw new Error('Category not exist');
@@ -137,6 +142,7 @@ router.get('/letters', function(req, res, next) {
 
 router.post('/messages', function(req, res, next) {
     var theMessage = new Message(req.body);
+
     theMessage.save().then(function(message) {
         res.json(message);
     }).catch(function(err) {

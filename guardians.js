@@ -4,7 +4,7 @@ var configuration = require('./configurations/configuration');
 var redisClient = require('./configurations/redisClient');
 var io = socketIo(configuration.socketIoPort);
 
-io.of('/chat').on('connection', function(socket) {
+io.of('/notification').on('connection', function(socket) {
     console.log('someone connected');
     redisClient.storeClient.smembersAsync("steven").then(function(rooms) {
         rooms.forEach(function(room, index) {

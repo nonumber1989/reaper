@@ -2,22 +2,49 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    name: {
+    userName: {
         type: String,
-        required: true
+        unique: true
     },
     email: {
         type: String,
         required: true,
         trim: true
     },
-    userName: {
+    password: String,
+    authority: {
         type: String,
-        unique: true
+        enum: ['admin', 'user'],
+        default: 'user'
     },
-    provider: String,
-    password: String
-});
+    refreshTokens: [{
+        refreshToken: String,
+        updatedAt: Date,
+        type: {
+            type: String,
+            enum: ['web', 'mobile'],
+            default: 'web'
+        }
+    }],
+    follows: {
+        categories: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Category'
+        }],
+        channels: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Channel'
+        }],
+        topics: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Topic'
+        }],
+        letters: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Letter'
+        }]
+    }
+}, { timestamps: true });
 
 var validatePresenceOf = value => value && value.length;
 

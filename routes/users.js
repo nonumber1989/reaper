@@ -12,7 +12,13 @@ var responseUtils = require('../services/responseUtils');
 
 router.get('/', function(req, res, next) {
     var pagenation = requestUtils.getPagenation(req);
-    var queryPromise = User.find({}, {}, pagenation).exec();
+    var queryPromise = User.find({})
+        .skip(pagenation.offset)
+        .limit(pagenation.limit)
+        .sort('-createdTime')
+        .select('-password -refreshTokens -follows')
+        .exec();
+
     queryPromise.then(function(users) {
         res.json(users);
     }).catch(function(err) {

@@ -35,12 +35,25 @@ router.post('/authenticate', function(req, res, next) {
     var queryPromise = User.findOne({ userName: theUser.userName }).exec();
     queryPromise.then(function(user) {
         if (user) {
-            return bcrypt.compare(theUser.password, user.password);
+            var rawPassword = theUser.password;
+            theUser = user;
+            return bcrypt.compare(rawPassword, user.password);
         } else {
             responseUtils.resourceNotFoundError(res, req.params.id);
         }
     }).then(function(validated) {
-        res.json(generateToken(theUser));
+        if (validated) {
+            console.log(theUser.toObject() + "-----");
+            var userToken = {
+                header:"Authorization",
+                prefix:"Bearer",
+                refreshToken:"",
+                accessToken:""
+            };
+            res.json(generateToken(theUser));
+        } else {
+            throw new Error('UserName or Password wrong!');
+        }
     }).catch(function(err) {
         responseUtils.internalError(res, err);
     });
