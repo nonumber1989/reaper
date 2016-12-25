@@ -47,10 +47,10 @@ router.post('/authenticate', function(req, res, next) {
             var userToken = {
                 header:"Authorization",
                 prefix:"Bearer",
-                refreshToken:"",
+                refreshToken:generateToken(theUser.toObject()),
                 accessToken:""
             };
-            res.json(generateToken(theUser));
+            res.json(userToken);
         } else {
             throw new Error('UserName or Password wrong!');
         }

@@ -6,7 +6,7 @@ var io = socketIo(configuration.socketIoPort);
 
 io.of('/notification').on('connection', function(socket) {
     console.log('someone connected');
-    redisClient.storeClient.smembersAsync("steven").then(function(rooms) {
+    redisClient.storeClient.smembersAsync("notification").then(function(rooms) {
         rooms.forEach(function(room, index) {
             console.log("index " + index + "---" + room);
             socket.join(room);
@@ -37,11 +37,11 @@ var room = "theRoom";
 
 redisClient.subscribeClient.on("message", function(channel, message) {
     console.log("socket with redis subscribe" + channel + ": " + message);
-    io.nsps['/chat'].in(channel).emit('message', message);
+    io.nsps['/notification'].in(channel).emit('message', message);
 });
 
 
 redisClient.subscribeClient.on("pmessage", function(pattern, channel, message) {
     console.log("socket with redis subscribe" + channel + ": " + message);
-    io.nsps['/chat'].in(pattern).emit('message', channel + "----" + message);
+    io.nsps['/notification'].in(pattern).emit('message', channel + "----" + message);
 });

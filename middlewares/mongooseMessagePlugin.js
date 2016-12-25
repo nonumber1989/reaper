@@ -9,7 +9,7 @@ var mongooseMessagePlugin = function(schema, options) {
         switch (collectionName) {
             case 'categories':
                 eventMessage.namespace = document.namespace;
-                eventMessage.content = document.eventIdentifier;
+                eventMessage.content = document.name;
                 break;
             case 'channels':
                 eventMessage.namespace = document.namespace;
@@ -33,6 +33,9 @@ var mongooseMessagePlugin = function(schema, options) {
             pubClient.publish(eventMessage.namespace, eventMessage.content + " has been created!");
         });
 
+        storeClient.hmsetAsync(eventMessage.namespace + ":" + eventMessage.content, document.toObject()).then(function(count) {
+            console.log("store to redis  " + document.toObject());
+        });
     });
 
     schema.post('remove', function(document) {

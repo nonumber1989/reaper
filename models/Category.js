@@ -20,14 +20,14 @@ var CategorySchema = new Schema({
 //   return this.namespace + ':' + this.name;
 // });
 
-CategorySchema.pre('save', function(next) {
-    if (this.isNew) {
-        this.eventIdentifier = this.namespace+":"+this.name;
-        next();
-    } else {
-        return next();
-    }
-});
+// CategorySchema.pre('save', function(next) {
+//     if (this.isNew) {
+//         this.eventIdentifier = this.namespace+":"+this.name;
+//         next();
+//     } else {
+//         return next();
+//     }
+// });
 
 CategorySchema.index({ namespace: 1, name: 1 }, { unique: true });
 CategorySchema.plugin(mongooseMessage);
