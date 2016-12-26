@@ -43,17 +43,19 @@ router.post('/authenticate', function(req, res, next) {
         }
     }).then(function(validated) {
         if (validated) {
-            console.log(theUser.toObject() + "-----");
-            var userToken = {
-                header:"Authorization",
-                prefix:"Bearer",
-                refreshToken:generateToken(theUser.toObject()),
-                accessToken:""
-            };
-            res.json(userToken);
+            return theUser.update({ $set: { userName: 'hereisunique' } });
         } else {
             throw new Error('UserName or Password wrong!');
         }
+    }).then(function(updatedUser) {
+        console.log(theUser.toObject() + "-----");
+        var userToken = {
+            header: "Authorization",
+            prefix: "Bearer",
+            refreshToken: generateToken(theUser.toObject()),
+            accessToken: ""
+        };
+        res.json(userToken);
     }).catch(function(err) {
         responseUtils.internalError(res, err);
     });
