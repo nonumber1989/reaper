@@ -54,7 +54,7 @@ router.post('/authenticate', function(req, res, next) {
             header: "Authorization",
             prefix: "Bearer",
             refreshToken: generateToken(theUser.toObject()),
-            accessToken: crypto.randomBytes(256).toString('hex')
+            accessToken: crypto.randomBytes(256).toString('base64')
         };
         res.json(userToken);
     }).catch(function(err) {
