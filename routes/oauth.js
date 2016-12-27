@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 var saltRounds = 12;
 var User = mongoose.model("User");
 var ObjectId = mongoose.Types.ObjectId;
@@ -53,7 +54,7 @@ router.post('/authenticate', function(req, res, next) {
             header: "Authorization",
             prefix: "Bearer",
             refreshToken: generateToken(theUser.toObject()),
-            accessToken: ""
+            accessToken: crypto.randomBytes(256).toString('hex')
         };
         res.json(userToken);
     }).catch(function(err) {
