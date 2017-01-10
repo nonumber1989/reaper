@@ -56,7 +56,10 @@ var mongooseMessagePlugin = function(schema, options) {
 
     schema.post('findOneAndRemove', function(document) {
         if (document) {
+            var eventMessage = getEvenetMessage(document);
             console.log('%s has been finded and removed', document._id);
+            storeClient.delAsync(eventMessage.namespace + ":" + eventMessage.content);
+            console.log('%s has been removed from redis', document._id);
         }
     });
 

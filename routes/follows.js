@@ -11,6 +11,8 @@ var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
+var storeClient = require('../configurations/redisClient').storeClient;
+
 router.post('/categories', function(req, res, next) {
     var theCategory = new Category(req.body);
     theCategory.save().then(function(category) {
@@ -51,6 +53,11 @@ router.put('/categories/:id', function(req, res, next) {
 });
 
 router.get('/categories', function(req, res, next) {
+
+    storeClient.smembersAsync("notification").then(function(notifications) {
+        console.log("size ---" + notifications)
+    });
+
     var pagenation = requestUtils.getPagenation(req);
     var queryPromise = Category.find({})
         .skip(pagenation.offset)
