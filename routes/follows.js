@@ -11,6 +11,8 @@ var ObjectId = mongoose.Types.ObjectId;
 var requestUtils = require('../services/requestUtils');
 var responseUtils = require('../services/responseUtils');
 
+var Promise = require('bluebird');
+
 var storeClient = require('../configurations/redisClient').storeClient;
 
 router.post('/categories', function(req, res, next) {
@@ -55,21 +57,32 @@ router.put('/categories/:id', function(req, res, next) {
 router.get('/categories', function(req, res, next) {
 
     storeClient.smembersAsync("notification").then(function(notifications) {
-        console.log("size ---" + notifications)
+        console.log("size ---" + notifications);
+
+        var test = [];
+
+        notifications.forEach(function(notification, i) {
+            console.log("    " + i + ": " + notification);
+            test.push(storeClient.hgetallAsync("notification:" + notification));
+        });
+
+        Promise.all(test).then(function(results) {
+             res.json(results);
+        });
     });
 
-    var pagenation = requestUtils.getPagenation(req);
-    var queryPromise = Category.find({})
-        .skip(pagenation.offset)
-        .limit(pagenation.limit)
-        .sort('-createdTime')
-        .exec();
+    // var pagenation = requestUtils.getPagenation(req);
+    // var queryPromise = Category.find({})
+    //     .skip(pagenation.offset)
+    //     .limit(pagenation.limit)
+    //     .sort('-createdTime')
+    //     .exec();
 
-    queryPromise.then(function(categories) {
-        res.json(categories);
-    }).catch(function(err) {
-        responseUtils.internalError(res, err);
-    });
+    // queryPromise.then(function(categories) {
+    //     res.json(categories);
+    // }).catch(function(err) {
+    //     responseUtils.internalError(res, err);
+    // });
 });
 
 router.post('/channels', function(req, res, next) {
