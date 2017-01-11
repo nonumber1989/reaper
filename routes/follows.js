@@ -56,33 +56,30 @@ router.put('/categories/:id', function(req, res, next) {
 
 router.get('/categories', function(req, res, next) {
 
+    var pagenation = requestUtils.getPagenation(req);
+
     storeClient.smembersAsync("notification").then(function(notifications) {
-        console.log("size ---" + notifications);
 
-        var test = [];
-
-        notifications.forEach(function(notification, i) {
-            console.log("    " + i + ": " + notification);
-            test.push(storeClient.hgetallAsync("notification:" + notification));
-        });
-
-        Promise.all(test).then(function(results) {
-             res.json(results);
-        });
+        if (notifications.length) {
+            var notificationPromises = [];
+            notifications.forEach(function(notification, index) {
+                notificationPromises.push(storeClient.hgetallAsync("notification:" + notification));
+            });
+            return Promise.all(notificationPromises);
+        } else {
+            var queryPromise = Category.find({})
+                .skip(pagenation.offset)
+                .limit(pagenation.limit)
+                .sort('-createdTime')
+                .exec();
+            return queryPromise;
+        }
+    }).then(function(categories) {
+        res.json(categories);
+    }).catch(function(err) {
+        responseUtils.internalError(res, err);
     });
 
-    // var pagenation = requestUtils.getPagenation(req);
-    // var queryPromise = Category.find({})
-    //     .skip(pagenation.offset)
-    //     .limit(pagenation.limit)
-    //     .sort('-createdTime')
-    //     .exec();
-
-    // queryPromise.then(function(categories) {
-    //     res.json(categories);
-    // }).catch(function(err) {
-    //     responseUtils.internalError(res, err);
-    // });
 });
 
 router.post('/channels', function(req, res, next) {
